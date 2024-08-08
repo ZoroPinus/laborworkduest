@@ -708,6 +708,34 @@ export default function Form() {
                   </div>
                 </div>
               )}
+              {typeOfWork === 'Tile Works' && (
+                <div className='sm:col-span-3'>
+                  <label
+                    htmlFor='tileType'
+                    className='block text-sm font-medium leading-6 text-gray-900'
+                  >
+                    Tile Type
+                  </label>
+                  <div className='mt-2'>
+                    <select
+                      id='tileType'
+                      {...register('tileType')}
+                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                    >
+                      <option value='' disabled selected>
+                        Select your option
+                      </option>
+                      <option value='Floor Tile'>Floor Tile</option>
+                      <option value='Wall Tile'>Wall Tile</option>
+                    </select>
+                    {errors.tileType?.message && (
+                      <p className='mt-2 text-sm text-red-400'>
+                        {errors.tileType.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* concrete Section */}
               {typeOfWork === 'Concrete Works' && (
