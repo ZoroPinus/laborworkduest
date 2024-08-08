@@ -443,7 +443,7 @@ export default function Form() {
   }
 
   return (
-    <section className='absolute inset-0 flex flex-col justify-between p-24'>
+    <section className='md:p-17 absolute inset-0 flex flex-col justify-between p-12 sm:p-24'>
       {/* steps */}
       <nav aria-label='Progress'>
         <ol role='list' className='space-y-4 md:flex md:space-x-8 md:space-y-0'>
@@ -736,12 +736,11 @@ export default function Form() {
                   </div>
                 </div>
               )}
-
               {/* concrete Section */}
               {typeOfWork === 'Concrete Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 sm:col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -851,7 +850,9 @@ export default function Form() {
                           type='number'
                           id='totalVolume'
                           value={getTotalVolume()}
-                          {...register('totalVolume', { valueAsNumber: true })}
+                          {...register('totalVolume', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.totalVolume?.message && (
@@ -866,9 +867,9 @@ export default function Form() {
               )}
               {/* Masonry Section */}
               {typeOfWork === 'Masonry Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='wallLength'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -881,7 +882,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='wallLength'
-                          {...register('wallLength', { valueAsNumber: true })}
+                          {...register('wallLength', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.wallLength?.message && (
@@ -905,7 +908,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='wallHeight'
-                          {...register('wallHeight', { valueAsNumber: true })}
+                          {...register('wallHeight', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.wallHeight?.message && (
@@ -929,7 +934,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='areaOfWindow'
-                          {...register('areaOfWindow', { valueAsNumber: true })}
+                          {...register('areaOfWindow', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.areaOfWindow?.message && (
@@ -953,7 +960,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='areaOfDoor'
-                          {...register('areaOfDoor', { valueAsNumber: true })}
+                          {...register('areaOfDoor', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.areaOfDoor?.message && (
@@ -1019,9 +1028,9 @@ export default function Form() {
               )}
               {/* Steel works Section */}
               {typeOfWork === 'Steel Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='totalRebar'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -1034,7 +1043,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='totalRebar'
-                          {...register('totalRebar', { valueAsNumber: true })}
+                          {...register('totalRebar', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.totalRebar?.message && (
@@ -1049,9 +1060,9 @@ export default function Form() {
               )}
               {/* Roofing works Section */}
               {typeOfWork === 'Roof Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='totalRoofArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -1081,9 +1092,9 @@ export default function Form() {
               )}
               {/* Painting Section */}
               {typeOfWork === 'Painting Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -1144,7 +1155,9 @@ export default function Form() {
                           type='number'
                           id='totalArea'
                           value={getTotalVolume()}
-                          {...register('totalArea', { valueAsNumber: true })}
+                          {...register('totalArea', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.totalArea?.message && (
@@ -1159,9 +1172,9 @@ export default function Form() {
               )}
               {/* Tile Works Section */}
               {typeOfWork === 'Tile Works' && (
-                <div className='sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2'>
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -1174,7 +1187,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='widthTile'
-                          {...register('widthTile', { valueAsNumber: true })}
+                          {...register('widthTile', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.widthTile?.message && (
@@ -1197,7 +1212,9 @@ export default function Form() {
                         <input
                           type='number'
                           id='heightTile'
-                          {...register('heightTile', { valueAsNumber: true })}
+                          {...register('heightTile', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.heightTile?.message && (
@@ -1221,7 +1238,9 @@ export default function Form() {
                           type='number'
                           id='totalAreaTile'
                           value={getTotalVolume()}
-                          {...register('totalAreaTile', { valueAsNumber: true })}
+                          {...register('totalAreaTile', {
+                            valueAsNumber: true
+                          })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.totalAreaTile?.message && (
@@ -1237,9 +1256,9 @@ export default function Form() {
 
               {/* Manpower */}
               {estimationType === 'Work Duration' && (
-                <div className='sm:col-span-5 sm:col-start-6 '>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-1'>
-                    <div className='sm:col-span-5'>
+                <div className='sm:col-span-5 sm:col-start-6 col-start-1 col-span-5'>
+                  <div className='grid-child grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-1'>
+                    <div className='col-span-1 sm:col-span-5'>
                       <label
                         htmlFor='manpower'
                         className='block text-lg font-bold leading-6 text-gray-900'
@@ -1280,7 +1299,9 @@ export default function Form() {
                           <input
                             type='number'
                             id='special2'
-                            {...register('special2', { valueAsNumber: true })}
+                            {...register('special2', {
+                              valueAsNumber: true
+                            })}
                             className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                           />
                           {errors.special2?.message && (
@@ -1313,7 +1334,7 @@ export default function Form() {
                       </div>
                     </div>
                   </div>
-                  <div className='grid-child grid grid-cols-5 gap-x-6 '>
+                  <div className='grid-child grid grid-cols-1 sm:grid-cols-5 gap-x-6 '>
                     <div className='mb-2 sm:col-span-5'>
                       <label
                         htmlFor='factorsCLP'
@@ -1443,9 +1464,9 @@ export default function Form() {
             </div>
             {/* Work Duration Section */}
             {estimationType === 'Number of Labor' && (
-              <div className='mt-3 sm:col-span-5 sm:col-start-1'>
-                <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                  <div className='sm:col-span-2'>
+              <div className='col-span-5 col-start-1 sm:col-span-5 mt-3'>
+                <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='col-span-1 sm:col-span-2'>
                     <label
                       htmlFor='workDuration'
                       className='block text-sm font-medium leading-6 text-gray-900'
@@ -1586,7 +1607,7 @@ export default function Form() {
       </form>
 
       {/* Navigation */}
-      <div className='mt-8 pt-5'>
+      <div className='mt-8 pb-10 pt-5'>
         <div className='flex justify-between'>
           <button
             type='button'
