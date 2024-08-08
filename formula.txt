@@ -1,0 +1,36 @@
+Workduration for Concrete Floor Slab / beam
+const a = totalVolume/(4.0444*special)
+const b = totalVolume/(1.1556*labor)
+floorRes = average(a,b)
+
+Workduration for else
+const a = totalVolume/(2.1778*special)
+const b = totalVolume/(0.6222*labor)
+floorRes = average(a,b)
+
+
+No. labors computation
+
+mason = totalVolume/LP(4.04444)*WorkDuration
+labor = totalVolume/LP(1.1556)*WorkDuration
+
+
+MASONRY work duration
+Total Wall Area/ (3.3333* mason)
+Total Wall Area/ (3.3333* LABOR)
+
+Res = average(a,b)
+
+Steel works
+totalRebar/180 * skilled manpower
+totalRebar/45 * labor manpower
+
+Painting works
+const a = totalArea/(5.000*special)
+const b = totalArea/(5.000*labor)
+
+const a = totalArea/(4.5*special)
+const b = totalArea/(4.5*labor)
+
+const a = totalArea/(4.000*special)
+const b = totalArea/(4.000*labor)
