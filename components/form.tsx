@@ -491,7 +491,7 @@ export default function Form() {
               Project Information
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Provide your project's details.
+              Provide your project{`'`}s details.
             </p>
             <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
               <div className='sm:col-span-3'>
@@ -746,9 +746,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width 
+                        Width {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -770,9 +770,9 @@ export default function Form() {
                         htmlFor='length'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Length 
+                        Length {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -794,9 +794,9 @@ export default function Form() {
                         htmlFor='depth'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Depth 
+                        Depth {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -817,9 +817,9 @@ export default function Form() {
                         htmlFor='quantity'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Quantity 
+                        Quantity {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -840,9 +840,9 @@ export default function Form() {
                         htmlFor='totalVolume'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Volume 
+                        Total Volume {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -871,9 +871,9 @@ export default function Form() {
                         htmlFor='wallLength'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Wall Length 
+                        Wall Length {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -895,9 +895,9 @@ export default function Form() {
                         htmlFor='wallHeight'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Wall Height 
+                        Wall Height {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -919,9 +919,9 @@ export default function Form() {
                         htmlFor='areaOfWindow'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Area of Window 
+                        Area of Window {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -943,9 +943,9 @@ export default function Form() {
                         htmlFor='areaOfDoor'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Area of Door 
+                        Area of Door {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -967,9 +967,9 @@ export default function Form() {
                         htmlFor='totalWallArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Wall Area 
+                        Total Wall Area {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -994,9 +994,9 @@ export default function Form() {
                         htmlFor='chbWidth'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        CHB Width 
+                        CHB Width {`(`}
                         in
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1024,9 +1024,9 @@ export default function Form() {
                         htmlFor='totalRebar'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Rebar 
+                        Total Rebar {`(`}
                         Kgs.
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1054,9 +1054,9 @@ export default function Form() {
                         htmlFor='totalRoofArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Roof Area 
+                        Total Roof Area {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1086,9 +1086,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width 
+                        Width {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1110,9 +1110,9 @@ export default function Form() {
                         htmlFor='height'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Height 
+                        Height {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1133,9 +1133,9 @@ export default function Form() {
                         htmlFor='totalArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Area 
+                        Total Area {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1164,9 +1164,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width 
+                        Width {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1187,9 +1187,9 @@ export default function Form() {
                         htmlFor='heightTile'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Height 
+                        Height {`(`}
                         {getUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1210,18 +1210,16 @@ export default function Form() {
                         htmlFor='totalAreaTile'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Area 
+                        Total Area {`(`}
                         {getTotalUnits()}
-                        
+                        {`)`}
                       </label>
                       <div className='mt-2'>
                         <input
                           type='number'
                           id='totalAreaTile'
                           value={getTotalVolume()}
-                          {...register('totalAreaTile', {
-                            valueAsNumber: true
-                          })}
+                          {...register('totalAreaTile', { valueAsNumber: true })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
                         {errors.totalAreaTile?.message && (
