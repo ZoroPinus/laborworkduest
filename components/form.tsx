@@ -255,7 +255,7 @@ export default function Form() {
       case 'ft':
         return 'ft'
       default:
-        return 'm³'
+        return 'm'
     }
   }
   const getDate = (date: Date) => {
@@ -741,7 +741,7 @@ export default function Form() {
               {typeOfWork === 'Concrete Works' && (
                 <div className='sm:col-span-5 sm:col-start-1 '>
                   <div className='grid-child grid grid-cols-5 gap-x-6 gap-y-8'>
-                    <div className='sm:col-span-2 sm:col-start-1'>
+                    <div className='sm:col-span-2'>
                       <label
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -812,6 +812,7 @@ export default function Form() {
                         )}
                       </div>
                     </div>
+
                     <div className='sm:col-span-2'>
                       <label
                         htmlFor='quantity'
@@ -835,6 +836,7 @@ export default function Form() {
                         )}
                       </div>
                     </div>
+
                     <div className='sm:col-span-2'>
                       <label
                         htmlFor='totalVolume'
