@@ -188,28 +188,28 @@ export default function Form() {
     if (typeOfWork === 'Concrete Works') {
       switch (prefUnits) {
         case 'mm':
-          return 'mm³'
+          return 'mm'
         case 'cm':
-          return 'cm³'
+          return 'cm'
         case 'in':
-          return 'in³'
+          return 'in'
         case 'ft':
-          return 'ft³'
+          return 'ft'
         default:
-          return 'm³'
+          return 'm'
       }
     } else {
       switch (prefUnits) {
         case 'mm':
-          return 'mm²'
+          return 'mm'
         case 'cm':
-          return 'cm²'
+          return 'cm'
         case 'in':
-          return 'in²'
+          return 'in'
         case 'ft':
-          return 'ft²'
+          return 'ft'
         default:
-          return 'm²'
+          return 'm'
       }
     }
   }
