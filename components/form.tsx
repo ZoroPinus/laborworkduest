@@ -188,28 +188,28 @@ export default function Form() {
     if (typeOfWork === 'Concrete Works') {
       switch (prefUnits) {
         case 'mm':
-          return 'mm'
+          return 'mm³'
         case 'cm':
-          return 'cm'
+          return 'cm³'
         case 'in':
-          return 'in'
+          return 'in³'
         case 'ft':
-          return 'ft'
+          return 'ft³'
         default:
-          return 'm'
+          return 'm³'
       }
     } else {
       switch (prefUnits) {
         case 'mm':
-          return 'mm'
+          return 'mm²'
         case 'cm':
-          return 'cm'
+          return 'cm²'
         case 'in':
-          return 'in'
+          return 'in²'
         case 'ft':
-          return 'ft'
+          return 'ft²'
         default:
-          return 'm'
+          return 'm²'
       }
     }
   }
@@ -746,9 +746,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width {`(`}
+                        Width 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -770,9 +770,9 @@ export default function Form() {
                         htmlFor='length'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Length {`(`}
+                        Length 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -794,9 +794,9 @@ export default function Form() {
                         htmlFor='depth'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Depth {`(`}
+                        Depth 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -817,9 +817,9 @@ export default function Form() {
                         htmlFor='quantity'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Quantity {`(`}
+                        Quantity 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -840,9 +840,9 @@ export default function Form() {
                         htmlFor='totalVolume'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Volume {`(`}
+                        Total Volume 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -871,9 +871,9 @@ export default function Form() {
                         htmlFor='wallLength'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Wall Length {`(`}
+                        Wall Length 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -895,9 +895,9 @@ export default function Form() {
                         htmlFor='wallHeight'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Wall Height {`(`}
+                        Wall Height 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -919,9 +919,9 @@ export default function Form() {
                         htmlFor='areaOfWindow'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Area of Window {`(`}
+                        Area of Window 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -943,9 +943,9 @@ export default function Form() {
                         htmlFor='areaOfDoor'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Area of Door {`(`}
+                        Area of Door 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -967,9 +967,9 @@ export default function Form() {
                         htmlFor='totalWallArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Wall Area {`(`}
+                        Total Wall Area 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -994,9 +994,9 @@ export default function Form() {
                         htmlFor='chbWidth'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        CHB Width {`(`}
+                        CHB Width 
                         in
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1024,9 +1024,9 @@ export default function Form() {
                         htmlFor='totalRebar'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Rebar {`(`}
+                        Total Rebar 
                         Kgs.
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1054,9 +1054,9 @@ export default function Form() {
                         htmlFor='totalRoofArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Roof Area {`(`}
+                        Total Roof Area 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1086,9 +1086,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width {`(`}
+                        Width 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1110,9 +1110,9 @@ export default function Form() {
                         htmlFor='height'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Height {`(`}
+                        Height 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1133,9 +1133,9 @@ export default function Form() {
                         htmlFor='totalArea'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Area {`(`}
+                        Total Area 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1164,9 +1164,9 @@ export default function Form() {
                         htmlFor='width'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Width {`(`}
+                        Width 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1187,9 +1187,9 @@ export default function Form() {
                         htmlFor='heightTile'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Height {`(`}
+                        Height 
                         {getUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1210,9 +1210,9 @@ export default function Form() {
                         htmlFor='totalAreaTile'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Total Area {`(`}
+                        Total Area 
                         {getTotalUnits()}
-                        {`)`}
+                        
                       </label>
                       <div className='mt-2'>
                         <input
