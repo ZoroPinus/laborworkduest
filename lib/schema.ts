@@ -58,6 +58,7 @@ export const EstimationFormSchema = z
     lackOfLabor: z.boolean().optional(),
     lackOfWater: z.boolean().optional(),
     lackOfTools: z.boolean().optional(),
+    rework: z.boolean().optional(),
     workDuration: z.number().optional(),
 
     //universal but shown if estimation type is workduration

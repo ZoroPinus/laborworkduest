@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 import { z } from 'zod'
@@ -8,6 +8,7 @@ import { EstimationFormSchema } from '@/lib/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { format } from 'date-fns'
+import Image from 'next/image'
 type Inputs = z.infer<typeof EstimationFormSchema>
 const initialValues: Inputs = {
   projectType: '',
@@ -39,6 +40,7 @@ const initialValues: Inputs = {
   lackOfLabor: false,
   lackOfWater: false,
   lackOfTools: false,
+  rework: false,
   totalVolume: 0,
   totalRoofArea: 0,
   workDuration: 0,
@@ -93,6 +95,7 @@ const steps = [
       'workDuration',
       'totalAreaTile',
       'heightTile',
+      'rework',
       'totalWallArea'
     ]
   },
@@ -110,6 +113,8 @@ export default function Form() {
   const [specialWorker, setSpecialWorker] = useState(0)
   const [specialWorker2, setSpecialWorker2] = useState(0)
   const [laborWorker, setLaborWorker] = useState(0)
+  const [imgType, setImgType] = useState('/img/footing2.png')
+  const [imgTypeStep2, setImgTypeStep2] = useState('/img/footing2.png')
   const delta = currentStep - previousStep
   const {
     register,
@@ -138,7 +143,8 @@ export default function Form() {
 
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
-        await handleSubmit(processForm)()
+        const res = await handleSubmit(processForm)()
+        console.log(res)
       }
       setPreviousStep(currentStep)
       setCurrentStep(step => step + 1)
@@ -159,8 +165,8 @@ export default function Form() {
     const lackOfMaterialValue = watch('lackOfMaterial') ? 5 : 0
     const lackOfLaborValue = watch('lackOfLabor') ? 1 : 0
     const lackOfWaterValue = watch('lackOfWater') ? 1 : 0
-    const lackOfToolsValue = watch('lackOfTools') ? 1 : 0
-    const workDurationValue = watch('workDuration') ? 1 : 0
+    const lackOfToolsValue = watch('lackOfTools') ? 5 : 0
+    const rework = watch('rework') ? 2 : 0
 
     const totalSum =
       rainySeasonValue +
@@ -168,7 +174,7 @@ export default function Form() {
       lackOfLaborValue +
       lackOfWaterValue +
       lackOfToolsValue +
-      workDurationValue
+      rework
     return totalSum
   }
 
@@ -442,6 +448,67 @@ export default function Form() {
     }
   }
 
+  useEffect(() => {
+    const imgFile = () => {
+      switch (typeOfWork) {
+        case 'Tile Works':
+          return '/img/TILE.png'
+        case 'Masonry Works':
+          return '/img/CHB.png'
+        case 'Steel Works':
+          return '/img/REBAR.png'
+        case 'Painting Works':
+          return '/img/PAINT.png'
+        case 'Roof Works':
+          return '/img/ROOF.png'
+        default:
+          return '/img/FOOTING.png'
+      }
+    }
+    const imgType2 = () => {
+      if (typeOfWork === 'Concrete Works') {
+        switch (structuralMembers) {
+          case 'Footing':
+            return '/img/FOOTING.png'
+          case 'Column':
+            return '/img/COLUMN.png'
+          case 'Floor Slab':
+            return '/img/SLAB.png'
+          case 'Roof Beam':
+            return '/img/ROOFBEAM.png'
+          case 'Grade Beam':
+            return '/img/GRADEBEAM.png'
+          default:
+            return '/img/FOOTING.png'
+        }
+      } else if (typeOfWork === 'Painting Works') {
+        switch (wallType) {
+          case 'Exterior Wall':
+            return '/img/EXTERIORWALL.png'
+          case 'Interior Wall':
+            return '/img/INTERIORWALL.png'
+          case 'Both':
+            return '/img/EXTINTWALL.png'
+          default:
+            return '/img/EXTINTWALL.png'
+        }
+      } else if (typeOfWork === 'Tile Works') {
+        switch (tileType) {
+          case 'Floor Tile':
+            return '/img/FLOORTILE.png'
+          case 'Wall Tile':
+            return '/img/WALLTILE.png'
+          default:
+            return '/img/FLOORTILE.png'
+        }
+      } else {
+        return '/img/FLOORTILE.png'
+      }
+    }
+    setImgTypeStep2(imgType2)
+    setImgType(imgFile)
+  }, [typeOfWork, structuralMembers, wallType, tileType])
+
   return (
     <section className='md:p-17 absolute inset-0 flex flex-col justify-between p-12 sm:p-24'>
       {/* steps */}
@@ -493,140 +560,157 @@ export default function Form() {
             <p className='mt-1 text-sm leading-6 text-gray-600'>
               Provide your project{`'`}s details.
             </p>
-            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='projectType'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  Project Type
-                </label>
-                <div className='mt-2'>
-                  <select
-                    id='projectType'
-                    {...register('projectType')}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                  >
-                    <option value='' disabled selected>
-                      Select your option
-                    </option>
-                    <option value='Bungalow'>Bungalow</option>
-                    <option value='2 Storey'>2 Storey</option>
-                  </select>
-                  {errors.projectType?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.projectType.message}
-                    </p>
-                  )}
+            <div className='mt-10 grid grid-cols-1 sm:grid-cols-10'>
+              <div className='sm:col-span-5'>
+                <div className='grid-child grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-8 '>
+                  <div className='sm:col-span-8'>
+                    <label
+                      htmlFor='projectType'
+                      className='block text-sm font-medium leading-6 text-gray-900'
+                    >
+                      Project Type
+                    </label>
+                    <div className='mt-2 '>
+                      <select
+                        id='projectType'
+                        {...register('projectType')}
+                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
+                      >
+                        <option value='' disabled selected>
+                          Select your option
+                        </option>
+                        <option value='Bungalow'>Bungalow</option>
+                        <option value='2 Storey'>2 Storey</option>
+                      </select>
+                      {errors.projectType?.message && (
+                        <p className='mt-2 text-sm text-red-400'>
+                          {errors.projectType.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='sm:col-span-8'>
+                    <label
+                      htmlFor='prefUnits'
+                      className='block text-sm font-medium leading-6 text-gray-900'
+                    >
+                      Units
+                    </label>
+                    <div className='mt-2'>
+                      <select
+                        id='prefUnits'
+                        {...register('prefUnits')}
+                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
+                      >
+                        <option value='' disabled selected>
+                          Select your option
+                        </option>
+                        <option value='m'>m</option>
+                        <option value='mm'>mm</option>
+                        <option value='cm'>cm</option>
+                        <option value='in'>in</option>
+                        <option value='ft'>ft</option>
+                      </select>
+                      {errors.prefUnits?.message && (
+                        <p className='mt-2 text-sm text-red-400'>
+                          {errors.prefUnits.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='sm:col-span-8'>
+                    <label
+                      htmlFor='startDate'
+                      className='block text-sm font-medium leading-6 text-gray-900'
+                    >
+                      Starting Date
+                    </label>
+                    <div className='mt-2'>
+                      <input
+                        id='startDate'
+                        type='date'
+                        {...register('startDate')}
+                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                      />
+                      {errors.startDate?.message && (
+                        <p className='mt-2 text-sm text-red-400'>
+                          {errors.startDate.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='sm:col-span-8'>
+                    <label
+                      htmlFor='typeOfWork'
+                      className='block text-sm font-medium leading-6 text-gray-900'
+                    >
+                      Type of Work
+                    </label>
+                    <div className='mt-2'>
+                      <select
+                        id='typeOfWork'
+                        {...register('typeOfWork')}
+                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
+                      >
+                        <option value='' disabled selected>
+                          Select your option
+                        </option>
+                        <option value='Concrete Works'>Concrete</option>
+                        <option value='Masonry Works'>CHB Laying</option>
+                        <option value='Steel Works'>Steel Works</option>
+                        <option value='Tile Works'>Tile</option>
+                        <option value='Painting Works'>Painting</option>
+                        <option value='Roof Works'>Roof</option>
+                      </select>
+                      {errors.typeOfWork?.message && (
+                        <p className='mt-2 text-sm text-red-400'>
+                          {errors.typeOfWork.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='sm:col-span-8'>
+                    <label
+                      htmlFor='estimationType'
+                      className='block text-sm font-medium leading-6 text-gray-900'
+                    >
+                      What kind of Estimation
+                    </label>
+                    <div className='mt-2'>
+                      <select
+                        id='estimationType'
+                        {...register('estimationType')}
+                        className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
+                      >
+                        <option value='' disabled selected>
+                          Select your option
+                        </option>
+                        <option value='Number of Labor'>Number of Labor</option>
+                        <option value='Work Duration'>Work Duration</option>
+                      </select>
+                      {errors.estimationType?.message && (
+                        <p className='mt-2 text-sm text-red-400'>
+                          {errors.estimationType.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='prefUnits'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  Units
-                </label>
-                <div className='mt-2'>
-                  <select
-                    id='prefUnits'
-                    {...register('prefUnits')}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                  >
-                    <option value='' disabled selected>
-                      Select your option
-                    </option>
-                    <option value='m'>m</option>
-                    <option value='mm'>mm</option>
-                    <option value='cm'>cm</option>
-                    <option value='in'>in</option>
-                    <option value='ft'>ft</option>
-                  </select>
-                  {errors.prefUnits?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.prefUnits.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-4'>
-                <label
-                  htmlFor='startDate'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  Starting Date
-                </label>
-                <div className='mt-2'>
-                  <input
-                    id='startDate'
-                    type='date'
-                    {...register('startDate')}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+              <div className='relative row-start-1 mb-5 h-64 w-full sm:col-span-5 sm:col-start-6 sm:mx-10 sm:h-full'>
+                <div className=''>
+                  <Image
+                    priority
+                    fill
+                    src={imgType}
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                    alt='Picture of the author'
+                    className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
                   />
-                  {errors.startDate?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.startDate.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='typeOfWork'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  Type of Work
-                </label>
-                <div className='mt-2'>
-                  <select
-                    id='typeOfWork'
-                    {...register('typeOfWork')}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                  >
-                    <option value='' disabled selected>
-                      Select your option
-                    </option>
-                    <option value='Concrete Works'>Concrete</option>
-                    <option value='Masonry Works'>CHB Laying</option>
-                    <option value='Steel Works'>Steel Works</option>
-                    <option value='Tile Works'>Tile</option>
-                    <option value='Painting Works'>Painting</option>
-                    <option value='Roof Works'>Roof</option>
-                  </select>
-                  {errors.typeOfWork?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.typeOfWork.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className='sm:col-span-3'>
-                <label
-                  htmlFor='estimationType'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  What kind of Estimation
-                </label>
-                <div className='mt-2'>
-                  <select
-                    id='estimationType'
-                    {...register('estimationType')}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                  >
-                    <option value='' disabled selected>
-                      Select your option
-                    </option>
-                    <option value='Number of Labor'>Number of Labor</option>
-                    <option value='Work Duration'>Work Duration</option>
-                  </select>
-                  {errors.estimationType?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.estimationType.message}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -639,28 +723,42 @@ export default function Form() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <h2 className='text-base font-semibold leading-7 text-gray-900'>
+            <h2 className='text-xl font-semibold leading-7  text-gray-900'>
               {typeOfWork}
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
               Enter the necessary details for your estimation requirements.
             </p>
 
-            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10'>
+            <div className='mt-10 grid grid-cols-1 gap-y-8 sm:grid-cols-10 sm:gap-x-6'>
               {/* types */}
               {typeOfWork === 'Concrete Works' && (
-                <div className='sm:col-span-3'>
+                <div className=' sm:col-span-4'>
                   <label
                     htmlFor='structuralMembers'
-                    className='block text-sm font-medium leading-6 text-gray-900'
+                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
                   >
                     Structural Members
                   </label>
+                  <div className=' sm:col-span-4 '>
+                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
+                      <div className=''>
+                        <Image
+                          priority
+                          fill
+                          src={imgTypeStep2}
+                          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                          alt='Picture of the author'
+                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className='mt-2'>
                     <select
                       id='structuralMembers'
                       {...register('structuralMembers')}
-                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
                     >
                       <option value='' disabled selected>
                         Select your option
@@ -680,18 +778,32 @@ export default function Form() {
                 </div>
               )}
               {typeOfWork === 'Painting Works' && (
-                <div className='sm:col-span-3'>
+                <div className=' sm:col-span-4'>
                   <label
                     htmlFor='wallType'
-                    className='block text-sm font-medium leading-6 text-gray-900'
+                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
                   >
                     Wall Type
                   </label>
+                  <div className=' sm:col-span-4 '>
+                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4 sm:mx-10 sm:hidden  sm:h-full'>
+                      <div className=''>
+                        <Image
+                          priority
+                          fill
+                          src={imgTypeStep2}
+                          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                          alt='Picture of the author'
+                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className='mt-2'>
                     <select
                       id='wallType'
                       {...register('wallType')}
-                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
                     >
                       <option value='' disabled selected>
                         Select your option
@@ -709,18 +821,32 @@ export default function Form() {
                 </div>
               )}
               {typeOfWork === 'Tile Works' && (
-                <div className='sm:col-span-3'>
+                <div className=' sm:col-span-4'>
                   <label
                     htmlFor='tileType'
-                    className='block text-sm font-medium leading-6 text-gray-900'
+                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
                   >
                     Tile Type
                   </label>
+                  <div className=' sm:col-span-4 '>
+                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4 sm:mx-10 sm:hidden  sm:h-full'>
+                      <div className=''>
+                        <Image
+                          priority
+                          fill
+                          src={imgTypeStep2}
+                          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                          alt='Picture of the author'
+                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className='mt-2'>
                     <select
                       id='tileType'
                       {...register('tileType')}
-                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                      className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
                     >
                       <option value='' disabled selected>
                         Select your option
@@ -738,7 +864,7 @@ export default function Form() {
               )}
               {/* concrete Section */}
               {typeOfWork === 'Concrete Works' && (
-                <div className='col-span-5 sm:col-start-1 sm:col-span-5'>
+                <div className='col-span-5 sm:col-span-5 sm:col-start-1'>
                   <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
@@ -836,7 +962,7 @@ export default function Form() {
                       </div>
                     </div>
 
-                    <div className='sm:col-span-2'>
+                    <div className='sm:col-span-4'>
                       <label
                         htmlFor='totalVolume'
                         className='block text-sm font-medium leading-6 text-gray-900'
@@ -1256,12 +1382,12 @@ export default function Form() {
 
               {/* Manpower */}
               {estimationType === 'Work Duration' && (
-                <div className='sm:col-span-5 sm:col-start-6 col-start-1 col-span-5'>
-                  <div className='grid-child grid grid-cols-1 sm:grid-cols-5 gap-x-6 gap-y-1'>
+                <div className='col-span-5 col-start-1 sm:row-start-1 sm:col-span-5 sm:col-start-6'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-5'>
                     <div className='col-span-1 sm:col-span-5'>
                       <label
                         htmlFor='manpower'
-                        className='block text-lg font-bold leading-6 text-gray-900'
+                        className='block text-lg font-semibold leading-6 text-gray-900'
                       >
                         Manpower
                       </label>
@@ -1334,11 +1460,11 @@ export default function Form() {
                       </div>
                     </div>
                   </div>
-                  <div className='grid-child grid grid-cols-1 sm:grid-cols-5 gap-x-6 '>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 sm:grid-cols-5 '>
                     <div className='mb-2 sm:col-span-5'>
                       <label
                         htmlFor='factorsCLP'
-                        className='mt-10 block text-lg font-bold leading-6 text-gray-900'
+                        className='mt-10 block text-lg font-semibold leading-6 text-gray-900'
                       >
                         Factors of CLP {`(Check items if true/yes)`}
                       </label>
@@ -1458,13 +1584,36 @@ export default function Form() {
                         </div>
                       </div>
                     </div>
+                    <div className='sm:col-span-3'>
+                      <div className='flex w-full justify-between '>
+                        <label
+                          htmlFor='rework'
+                          className='text-sm font-medium leading-6 text-gray-900'
+                        >
+                          Rework
+                        </label>
+                        <div className=''>
+                          <input
+                            type='checkbox'
+                            id='rework'
+                            {...register('rework')}
+                            className={`form-check-input ${errors.rework?.message ? 'is-invalid' : ''}`}
+                          />
+                          {errors.rework?.message && (
+                            <p className='mt-2 text-sm text-red-400'>
+                              {errors.rework.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
             {/* Work Duration Section */}
             {estimationType === 'Number of Labor' && (
-              <div className='col-span-5 col-start-1 sm:col-span-5 mt-3'>
+              <div className='col-span-5 col-start-1 mt-3 sm:col-span-5'>
                 <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
                   <div className='col-span-1 sm:col-span-2'>
                     <label
@@ -1501,38 +1650,38 @@ export default function Form() {
             <p className='mt-1 text-sm leading-6 text-gray-600'>
               Thank you for your submission.
             </p>
-            <div className='mt-10 grid grid-cols-10 gap-x-3 gap-y-8'>
+            <div className='mt-10 grid gap-x-3 gap-y-8 sm:grid-cols-10'>
               <div className='col-span-6'>
                 <div className='grid-child gril-cols-5 gap-y-3'>
                   <div className='col-span-2'>
                     <div className='flex justify-between'>
                       <h4 className='text-slate-500'>Project Type:</h4>
-                      <p className=''>{watch('projectType')}</p>
+                      <p className='text-end'>{watch('projectType')}</p>
                     </div>
                   </div>
                   <div className='col-span-2'>
                     <div className='flex justify-between'>
                       <h4 className='text-slate-500'>Preferred Units:</h4>
-                      <p className=''>{watch('prefUnits')}</p>
+                      <p className='text-end'>{watch('prefUnits')}</p>
                     </div>
                   </div>
                   <div className='col-span-2'>
                     <div className='flex justify-between'>
                       <h4 className='text-slate-500'>Type of Work:</h4>
-                      <p className=''>{watch('typeOfWork')}</p>
+                      <p className='text-end'>{watch('typeOfWork')}</p>
                     </div>
                   </div>
                   <div className='col-span-2'>
                     <div className='flex justify-between'>
                       <h4 className='text-slate-500'>Estimation Type:</h4>
-                      <p className=''>{watch('estimationType')}</p>
+                      <p className='text-end'>{watch('estimationType')}</p>
                     </div>
                   </div>
                   {typeOfWork === 'Concrete Works' && (
                     <div className='col-span-2'>
                       <div className='flex justify-between'>
                         <h4 className='text-slate-500'>Structural Member:</h4>
-                        <p className=''>{watch('structuralMembers')}</p>
+                        <p className='text-end'>{watch('structuralMembers')}</p>
                       </div>
                     </div>
                   )}
@@ -1540,7 +1689,7 @@ export default function Form() {
                     <div className='col-span-2'>
                       <div className='flex justify-between'>
                         <h4 className='text-slate-500'>Wall Type:</h4>
-                        <p className=''>{watch('wallType')}</p>
+                        <p className='text-end'>{watch('wallType')}</p>
                       </div>
                     </div>
                   )}
@@ -1548,14 +1697,14 @@ export default function Form() {
                     <div className='col-span-2'>
                       <div className='flex justify-between'>
                         <h4 className='text-slate-500'>Tile Type:</h4>
-                        <p className=''>{watch('tileType')}</p>
+                        <p className='text-end'>{watch('tileType')}</p>
                       </div>
                     </div>
                   )}
                   <div className='col-span-2'>
                     <div className='flex justify-between'>
                       <h4 className='text-slate-500'>Starting Date:</h4>
-                      <p className=''>{getDate(watch('startDate'))}</p>
+                      <p className='text-end'>{getDate(watch('startDate'))}</p>
                     </div>
                   </div>
                   {estimationType === 'Work Duration' && (
@@ -1565,7 +1714,9 @@ export default function Form() {
                           <h4 className='text-slate-500'>
                             Expected Date to be finished:
                           </h4>
-                          <p className=''>{getDate(watch('startDate'))}</p>
+                          <p className='text-end'>
+                            {getDate(watch('startDate'))}
+                          </p>
                         </div>
                       </div>
                       <div className='col-span-2'>
@@ -1573,7 +1724,7 @@ export default function Form() {
                           <h4 className='text-slate-500'>
                             Total Work Duration in Days:
                           </h4>
-                          <p className=''>{workDuration}</p>
+                          <p className='text-end'>{workDuration}</p>
                         </div>
                       </div>
                     </>
@@ -1585,17 +1736,17 @@ export default function Form() {
                       </h4>
                       <div className='ml-5 flex justify-between'>
                         <h4 className='text-slate-500'>{getLabelText()}:</h4>
-                        <p className=''>{specialWorker}</p>
+                        <p className='text-end'>{specialWorker}</p>
                       </div>
                       {typeOfWork === 'Roof Works' && (
                         <div className='ml-5 flex justify-between'>
                           <h4 className='text-slate-500'>Welder:</h4>
-                          <p className=''>{specialWorker2}</p>
+                          <p className='text-end'>{specialWorker2}</p>
                         </div>
                       )}
                       <div className='ml-5 flex justify-between'>
                         <h4 className='text-slate-500'>Labor:</h4>
-                        <p className=''>{laborWorker}</p>
+                        <p className='text-end'>{laborWorker}</p>
                       </div>
                     </div>
                   )}

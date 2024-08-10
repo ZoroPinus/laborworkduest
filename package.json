@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
+    "@react-three/fiber": "^8.16.8",
     "date-fns": "^3.6.0",
     "framer-motion": "^10.16.4",
     "next": "^14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
+    "three": "^0.167.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
