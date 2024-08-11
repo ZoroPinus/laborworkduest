@@ -271,6 +271,19 @@ export default function Form() {
     const formattedDate = format(newDate, 'MMMM dd, yyyy')
     return formattedDate
   }
+  const getExpected = (date: Date, workDuration: number) => {
+    const startDate = new Date(date);
+    
+    // Add the number of days to the start date
+    startDate.setDate(startDate.getDate() + workDuration);
+  
+    // Format the date
+    const formattedDate = format(startDate, 'MMMM dd, yyyy');
+    
+    return formattedDate;
+  };
+
+  
   const totalVolume = getTotalVolume()
   const structuralMembers = watch('structuralMembers')
   const wallType = watch('wallType')
@@ -1715,7 +1728,7 @@ export default function Form() {
                             Expected Date to be finished:
                           </h4>
                           <p className='text-end'>
-                            {getDate(watch('startDate'))}
+                            {getExpected(watch('startDate'), workDuration)}
                           </p>
                         </div>
                       </div>
