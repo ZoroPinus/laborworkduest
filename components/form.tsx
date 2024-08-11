@@ -1551,29 +1551,7 @@ export default function Form() {
                         </div>
                       </div>
                     </div>
-                    <div className='sm:col-span-3'>
-                      <div className='flex w-full justify-between '>
-                        <label
-                          htmlFor='lackOfWater'
-                          className='text-sm font-medium leading-6 text-gray-900'
-                        >
-                          Shortage of water and / or power supply
-                        </label>
-                        <div className=''>
-                          <input
-                            type='checkbox'
-                            id='lackOfWater'
-                            {...register('lackOfWater')}
-                            className={`form-check-input ${errors.lackOfWater?.message ? 'is-invalid' : ''}`}
-                          />
-                          {errors.lackOfWater?.message && (
-                            <p className='mt-2 text-sm text-red-400'>
-                              {errors.lackOfWater.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                   
                     <div className='sm:col-span-3'>
                       <div className='flex w-full justify-between '>
                         <label
