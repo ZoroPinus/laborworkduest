@@ -1993,7 +1993,7 @@ export default function Form() {
                           </p>
                           {estimationType === 'Number of Labor' ?(
                             <p className='pr-4 text-sm text-slate-900'>
-                              {labor}
+                              {laborWorker}
                             </p>
                           ):(
                             <p className='pr-4 text-sm text-slate-900'>
