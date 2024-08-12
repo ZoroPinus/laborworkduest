@@ -536,11 +536,11 @@ export default function Form() {
     }
   }
 
-  // const checkFields =(data:Inputs)=>{
-  //   if(data.typeOfWork === "Concrete Works"){
-  //     // check if data.structuralMembers,width
-  //   }
-  // }
+  const showImg = () => {
+    if (typeOfWork === 'Concrete Works') {
+      return imgType
+    }
+  }
   return (
     <section className='flex flex-col justify-between py-12  '>
       {/* steps */}
@@ -600,7 +600,7 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='projectType'
-                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
+                      className='text-md  flex items-center font-medium leading-6 text-gray-900'
                     >
                       <HardHat size={28} className='mr-2' /> Project Type
                     </label>
@@ -627,7 +627,7 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='prefUnits'
-                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
+                      className='text-md  flex items-center font-medium leading-6 text-gray-900'
                     >
                       <PencilRuler size={28} className='mr-2' />
                       Units
@@ -658,7 +658,7 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='startDate'
-                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
+                      className='text-md  flex items-center font-medium leading-6 text-gray-900'
                     >
                       <CalendarPlus size={28} className='mr-2' />
                       Starting Date
@@ -681,7 +681,7 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='typeOfWork'
-                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
+                      className='text-md  flex items-center font-medium leading-6 text-gray-900'
                     >
                       <Hammer size={28} className='mr-2' />
                       Type of Work
@@ -713,7 +713,7 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='estimationType'
-                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
+                      className='text-md  flex items-center font-medium leading-6 text-gray-900'
                     >
                       <DraftingCompass size={28} className='mr-2' />
                       What kind of Estimation
@@ -774,17 +774,17 @@ export default function Form() {
               </p>
             </div>
 
-            <div className='mt-10 grid grid-cols-1 gap-y-8 sm:grid-cols-10 sm:gap-x-6'>
+            <div className={`mt-10 grid grid-cols-1 gap-y-8 ${estimationType === 'Work Duration' ?'sm:grid-cols-10':'sm:grid-cols-4 '} sm:gap-x-6`}>
               {/* types */}
               {typeOfWork === 'Concrete Works' && (
-                <div className=' sm:col-span-4'>
+                <div className=' sm:col-span-5'>
                   <label
                     htmlFor='structuralMembers'
                     className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Structural Members
                   </label>
-                  <div className='sm:col-span-4'>
+                  <div className='sm:col-span-5'>
                     <div className='relative mb-5 h-64 w-full'>
                       {/* Glassmorphism Effect */}
                       <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
@@ -824,14 +824,14 @@ export default function Form() {
                 </div>
               )}
               {typeOfWork === 'Painting Works' && (
-                <div className=' sm:col-span-4'>
+                <div className=' sm:col-span-5'>
                   <label
                     htmlFor='wallType'
                     className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Wall Type
                   </label>
-                  <div className='sm:col-span-4'>
+                  <div className='sm:col-span-5'>
                     <div className='relative mb-5 h-64 w-full'>
                       {/* Glassmorphism Effect */}
                       <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
@@ -869,14 +869,14 @@ export default function Form() {
                 </div>
               )}
               {typeOfWork === 'Tile Works' && (
-                <div className=' sm:col-span-4'>
+                <div className=' sm:col-span-5'>
                   <label
                     htmlFor='tileType'
                     className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Tile Type
                   </label>
-                  <div className='sm:col-span-4'>
+                  <div className='sm:col-span-5'>
                     <div className='relative mb-5 h-64 w-full'>
                       {/* Glassmorphism Effect */}
                       <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
@@ -915,7 +915,7 @@ export default function Form() {
               {/* concrete Section */}
               {typeOfWork === 'Concrete Works' && (
                 <div className='col-span-5 sm:col-span-5 sm:col-start-1'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
@@ -1044,7 +1044,7 @@ export default function Form() {
               {/* Masonry Section */}
               {typeOfWork === 'Masonry Works' && (
                 <div className='col-span-5 col-start-1 sm:col-span-5'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='wallLength'
@@ -1205,7 +1205,7 @@ export default function Form() {
               {/* Painting Section */}
               {typeOfWork === 'Painting Works' && (
                 <div className='col-span-5 sm:col-span-5 sm:col-start-1 '>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
@@ -1285,7 +1285,7 @@ export default function Form() {
               {/* Tile Works Section */}
               {typeOfWork === 'Tile Works' && (
                 <div className='col-span-5 sm:col-span-5 sm:col-start-1'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
                         htmlFor='width'
@@ -1368,7 +1368,7 @@ export default function Form() {
               {/* Steel works Section */}
               {typeOfWork === 'Steel Works' && (
                 <div className='col-span-5 col-start-1 sm:col-span-5'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-4'>
                       <label
                         htmlFor='totalRebar'
@@ -1400,7 +1400,7 @@ export default function Form() {
               {/* Roofing works Section */}
               {typeOfWork === 'Roof Works' && (
                 <div className='col-span-5 col-start-1 sm:col-span-5'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-4'>
                     <div className='col-span-1 sm:col-span-4'>
                       <label
                         htmlFor='totalRoofArea'
@@ -1664,7 +1664,7 @@ export default function Form() {
             {/* Work Duration Section */}
             {estimationType === 'Number of Labor' && (
               <div className='col-span-5 col-start-1 mt-3 sm:col-span-5'>
-                <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1'>
                   <div className='col-span-1 sm:col-span-2'>
                     <label
                       htmlFor='workDuration'
@@ -1693,117 +1693,342 @@ export default function Form() {
         )}
 
         {currentStep === 2 && (
-          <>
+          <div>
             <h2 className='text-xl font-semibold  leading-7 text-gray-900'>
               Complete
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
               Thank you for your submission.
             </p>
-            <div className='mt-10 grid gap-x-3 gap-y-8 sm:grid-cols-10'>
-              <div className='col-span-6'>
-                <div className='grid-child gril-cols-5 gap-y-3'>
-                  <div className='col-span-2'>
-                    <div className='flex justify-between'>
-                      <h4 className='text-slate-500'>Project Type:</h4>
-                      <p className='text-end'>{watch('projectType')}</p>
+            <div className='mt-10 grid gap-x-3 gap-y-8 rounded-sm border border-solid border-slate-300 bg-white p-5 sm:grid-cols-10'>
+              <div className='col-span-4'>
+                <div className='grid-child gap-y-3 sm:grid-cols-4'>
+                  <div className='col-span-4'>
+                    <h4 className='text-semibold my-2 rounded-sm border border-slate-300 text-center text-lg uppercase text-gray-900'>
+                      {watch('projectType')}
+                    </h4>
+                    <div className='flex w-full flex-col items-center justify-center border-x-0 border-y-2 border-gray-950 py-2'>
+                      <p className='pb-1 text-sm uppercase text-gray-600'></p>
+                      {projecType === 'Bungalow' ? (
+                        <Image
+                          src={'/img/bungalow.png'}
+                          width={350}
+                          height={350}
+                          alt='Bungalow'
+                        />
+                      ) : (
+                        <Image
+                          src={'/img/2storey.png'}
+                          width={350}
+                          height={350}
+                          alt='Bungalow'
+                        />
+                      )}
                     </div>
-                  </div>
-                  <div className='col-span-2'>
-                    <div className='flex justify-between'>
-                      <h4 className='text-slate-500'>Preferred Units:</h4>
-                      <p className='text-end'>{watch('prefUnits')}</p>
+                    <p className='text-semibold my-1 text-base uppercase text-gray-900'>
+                      {watch('typeOfWork')}
+                    </p>
+                    <div className='gap-y-3 border-x-0 border-y-2 border-gray-950 py-2 '>
+                      {typeOfWork === 'Concrete Works' && (
+                        <h1 className='text-center text-base uppercase text-slate-600'>
+                          {watch('structuralMembers')}
+                        </h1>
+                      )}
+                      {typeOfWork === 'Painting Works' && (
+                        <h1 className='text-center text-base uppercase text-slate-600'>
+                          {watch('wallType')}
+                        </h1>
+                      )}
+                      {typeOfWork === 'Tile Works' && (
+                        <h1 className='text-center text-base uppercase text-slate-600'>
+                          {watch('tileType')}
+                        </h1>
+                      )}
+                      {typeOfWork === 'Concrete Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              WIDTH
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('width')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              LENGTH
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('length')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              depth
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('depth')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              quantity
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('quantity')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total volume
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${getTotalVolume()} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {typeOfWork === 'Painting Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              WIDTH
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('paintingWidth')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              height
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('height')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total area
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${getTotalVolume()} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {typeOfWork === 'Tile Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              WIDTH
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('widthTile')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              height
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('heightTile')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total area
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${getTotalVolume()} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {typeOfWork === 'Masonry Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              Wall length
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('wallLength')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              Wall height
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('width')} ${getUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              area of window
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('areaOfWindow')} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              area of door
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('areaOfDoor')} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              CHB width
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('chbWidth')} in`}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total wall area
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${getTotalVolume()} ${getTotalUnits()}`}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {typeOfWork === 'Roof Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total roof area
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('totalRoofArea')} ${getTotalVolume()}`}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {typeOfWork === 'Steel Works' && (
+                        <>
+                          <div className='flex items-center justify-between'>
+                            <p className='text-sm uppercase text-slate-600'>
+                              total rebar
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {`${watch('totalRebar')} Kgs`}
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </div>
-                  </div>
-                  <div className='col-span-2'>
-                    <div className='flex justify-between'>
-                      <h4 className='text-slate-500'>Type of Work:</h4>
-                      <p className='text-end'>{watch('typeOfWork')}</p>
-                    </div>
-                  </div>
-                  <div className='col-span-2'>
-                    <div className='flex justify-between'>
-                      <h4 className='text-slate-500'>Estimation Type:</h4>
-                      <p className='text-end'>{watch('estimationType')}</p>
-                    </div>
-                  </div>
-                  {typeOfWork === 'Concrete Works' && (
-                    <div className='col-span-2'>
-                      <div className='flex justify-between'>
-                        <h4 className='text-slate-500'>Structural Member:</h4>
-                        <p className='text-end'>{watch('structuralMembers')}</p>
-                      </div>
-                    </div>
-                  )}
-                  {typeOfWork === 'Painting Works' && (
-                    <div className='col-span-2'>
-                      <div className='flex justify-between'>
-                        <h4 className='text-slate-500'>Wall Type:</h4>
-                        <p className='text-end'>{watch('wallType')}</p>
-                      </div>
-                    </div>
-                  )}
-                  {typeOfWork === 'Tile Works' && (
-                    <div className='col-span-2'>
-                      <div className='flex justify-between'>
-                        <h4 className='text-slate-500'>Tile Type:</h4>
-                        <p className='text-end'>{watch('tileType')}</p>
-                      </div>
-                    </div>
-                  )}
-                  <div className='col-span-2'>
-                    <div className='flex justify-between'>
-                      <h4 className='text-slate-500'>Starting Date:</h4>
-                      <p className='text-end'>{getDate(watch('startDate'))}</p>
-                    </div>
-                  </div>
-                  {estimationType === 'Work Duration' && (
-                    <>
-                      <div className='col-span-2'>
-                        <div className='flex justify-between'>
-                          <h4 className='text-slate-500'>
-                            Expected Date to be finished:
-                          </h4>
-                          <p className='text-end'>
-                            {getExpected(watch('startDate'), workDuration)}
+                    <p className='text-semibold my-1 text-base uppercase text-gray-900'>
+                      ESTIMATIONS
+                    </p>
+                    <div className='gap-y-3 border-x-0 border-t-2 border-gray-950 py-2 '>
+                      {estimationType !== 'Work Duration' && (
+                        <div className='flex items-center justify-between'>
+                          <p className='text-sm uppercase text-slate-600'>
+                            WORK DURATION
+                          </p>
+                          <p className='pr-4 text-sm text-slate-900'>
+                            {watch('width')} Days
                           </p>
                         </div>
-                      </div>
-                      <div className='col-span-2'>
-                        <div className='flex justify-between'>
-                          <h4 className='text-slate-500'>
-                            Total Work Duration in Days:
-                          </h4>
-                          <p className='text-end'>{workDuration}</p>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  {estimationType === 'Number of Labor' && (
-                    <div className='col-span-2'>
-                      <h4 className='text-bold text-slate-500'>
-                        Number of Labors
-                      </h4>
-                      <div className='ml-5 flex justify-between'>
-                        <h4 className='text-slate-500'>{getLabelText()}:</h4>
-                        <p className='text-end'>{specialWorker}</p>
-                      </div>
-                      {typeOfWork === 'Roof Works' && (
-                        <div className='ml-5 flex justify-between'>
-                          <h4 className='text-slate-500'>Welder:</h4>
-                          <p className='text-end'>{specialWorker2}</p>
+                      )}
+                      {estimationType === 'Number of Labor' && (
+                        <div>
+                          <p className='text-sm uppercase text-slate-600'>
+                            Number of labors
+                          </p>
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              {getLabelText()}
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {specialWorker}
+                            </p>
+                          </div>
+                          {typeOfWork === 'Roof Works' && (
+                            <div className='flex items-center justify-between'>
+                              <p className='indent-4 text-sm uppercase text-slate-600'>
+                                welder
+                              </p>
+                              <p className='pr-4 text-sm text-slate-900'>
+                                {specialWorker2}
+                              </p>
+                            </div>
+                          )}
+
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              labor
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {laborWorker}
+                            </p>
+                          </div>
                         </div>
                       )}
-                      <div className='ml-5 flex justify-between'>
-                        <h4 className='text-slate-500'>Labor:</h4>
-                        <p className='text-end'>{laborWorker}</p>
-                      </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className='col-span-6'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex flex-col items-center justify-center'>
+                    <p className='text-sm uppercase text-slate-600'>
+                      starting date
+                    </p>
+                    <p className='text-sm uppercase text-slate-900'>
+                      {getDate(watch('startDate'))}
+                    </p>
+                  </div>
+                  <div className='flex flex-col items-center justify-center'>
+                    <p className='text-sm uppercase text-slate-600'>
+                      expected date
+                    </p>
+                    {estimationType === ' Work Duration' ? (
+                      <p className='text-sm uppercase text-slate-900'>
+                        {getExpected(watch('startDate'), workDuration)}
+                      </p>
+                    ) : (
+                      <p className='text-sm uppercase text-slate-900'>
+                        {getExpected(
+                          watch('startDate'),
+                          watch('workDuration')!
+                        )}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className='relative h-64 w-full sm:h-full'>
+                  {typeOfWork === 'Concrete Works' ||
+                  typeOfWork === 'Painting Works' ||
+                  typeOfWork === 'Tile Works' ? (
+                    <Image
+                      id='imgLg'
+                      priority
+                      fill
+                      src={imgTypeStep2}
+                      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                      alt='Picture of the author'
+                      className='rounded-xl  object-contain py-10 '
+                    />
+                  ) : (
+                    <Image
+                      id='imgLg'
+                      priority
+                      fill
+                      src={imgType}
+                      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                      alt='Picture of the author'
+                      className='rounded-xl  object-contain py-10 '
+                    />
                   )}
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )}
       </form>
 
