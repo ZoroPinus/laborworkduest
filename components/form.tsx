@@ -9,6 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { format } from 'date-fns'
 import Image from 'next/image'
+import {
+  CalendarPlus,
+  DraftingCompass,
+  Hammer,
+  HardHat,
+  PencilRuler
+} from 'lucide-react'
 type Inputs = z.infer<typeof EstimationFormSchema>
 const initialValues: Inputs = {
   projectType: '',
@@ -272,18 +279,17 @@ export default function Form() {
     return formattedDate
   }
   const getExpected = (date: Date, workDuration: number) => {
-    const startDate = new Date(date);
-    
-    // Add the number of days to the start date
-    startDate.setDate(startDate.getDate() + workDuration);
-  
-    // Format the date
-    const formattedDate = format(startDate, 'MMMM dd, yyyy');
-    
-    return formattedDate;
-  };
+    const startDate = new Date(date)
 
-  
+    // Add the number of days to the start date
+    startDate.setDate(startDate.getDate() + workDuration)
+
+    // Format the date
+    const formattedDate = format(startDate, 'MMMM dd, yyyy')
+
+    return formattedDate
+  }
+
   const totalVolume = getTotalVolume()
   const structuralMembers = watch('structuralMembers')
   const wallType = watch('wallType')
@@ -522,8 +528,21 @@ export default function Form() {
     setImgType(imgFile)
   }, [typeOfWork, structuralMembers, wallType, tileType])
 
+  const typeOfWorkImg = () => {
+    if (typeOfWork === '') {
+      return 'Type of Work'
+    } else {
+      return typeOfWork
+    }
+  }
+
+  // const checkFields =(data:Inputs)=>{
+  //   if(data.typeOfWork === "Concrete Works"){
+  //     // check if data.structuralMembers,width
+  //   }
+  // }
   return (
-    <section className='md:p-17 absolute inset-0 flex flex-col justify-between p-12 sm:p-24'>
+    <section className='flex flex-col justify-between py-12  '>
       {/* steps */}
       <nav aria-label='Progress'>
         <ol role='list' className='space-y-4 md:flex md:space-x-8 md:space-y-0'>
@@ -534,24 +553,24 @@ export default function Form() {
                   <span className='text-sm font-medium text-sky-600 transition-colors '>
                     {step.id}
                   </span>
-                  <span className='text-sm font-medium'>{step.name}</span>
+                  <span className='text-md font-medium'>{step.name}</span>
                 </div>
               ) : currentStep === index ? (
                 <div
                   className='flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'
                   aria-current='step'
                 >
-                  <span className='text-sm font-medium text-sky-600'>
+                  <span className='text-lg font-medium text-sky-600'>
                     {step.id}
                   </span>
-                  <span className='text-sm font-medium'>{step.name}</span>
+                  <span className='text-md font-medium'>{step.name}</span>
                 </div>
               ) : (
                 <div className='group flex w-full flex-col border-l-4 border-gray-200 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
-                  <span className='text-sm font-medium text-gray-500 transition-colors'>
+                  <span className='text-lg font-medium text-gray-500 transition-colors'>
                     {step.id}
                   </span>
-                  <span className='text-sm font-medium'>{step.name}</span>
+                  <span className='text-md font-medium'>{step.name}</span>
                 </div>
               )}
             </li>
@@ -560,28 +579,30 @@ export default function Form() {
       </nav>
 
       {/* Form */}
-      <form className='mt-12 py-12' onSubmit={handleSubmit(processForm)}>
+      <form className=' py-10 ' onSubmit={handleSubmit(processForm)}>
         {currentStep === 0 && (
           <motion.div
             initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <h2 className='text-base font-semibold leading-7 text-gray-900'>
-              Project Information
-            </h2>
-            <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Provide your project{`'`}s details.
-            </p>
+            <div className='text-center'>
+              <h2 className='text-2xl font-semibold leading-7 text-gray-900'>
+                Project Information
+              </h2>
+              <p className='text-md mt-1 leading-6 text-gray-600'>
+                Provide your project{`'`}s details.
+              </p>
+            </div>
             <div className='mt-10 grid grid-cols-1 sm:grid-cols-10'>
-              <div className='sm:col-span-5'>
+              <div className='sm:col-span-5 '>
                 <div className='grid-child grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-8 '>
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='projectType'
-                      className='block text-sm font-medium leading-6 text-gray-900'
+                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
                     >
-                      Project Type
+                      <HardHat size={28} className='mr-2' /> Project Type
                     </label>
                     <div className='mt-2 '>
                       <select
@@ -606,8 +627,9 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='prefUnits'
-                      className='block text-sm font-medium leading-6 text-gray-900'
+                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
                     >
+                      <PencilRuler size={28} className='mr-2' />
                       Units
                     </label>
                     <div className='mt-2'>
@@ -636,8 +658,9 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='startDate'
-                      className='block text-sm font-medium leading-6 text-gray-900'
+                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
                     >
+                      <CalendarPlus size={28} className='mr-2' />
                       Starting Date
                     </label>
                     <div className='mt-2'>
@@ -658,8 +681,9 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='typeOfWork'
-                      className='block text-sm font-medium leading-6 text-gray-900'
+                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
                     >
+                      <Hammer size={28} className='mr-2' />
                       Type of Work
                     </label>
                     <div className='mt-2'>
@@ -689,8 +713,9 @@ export default function Form() {
                   <div className='sm:col-span-8'>
                     <label
                       htmlFor='estimationType'
-                      className='block text-sm font-medium leading-6 text-gray-900'
+                      className='text-md block flex items-center font-medium leading-6 text-gray-900'
                     >
+                      <DraftingCompass size={28} className='mr-2' />
                       What kind of Estimation
                     </label>
                     <div className='mt-2'>
@@ -715,16 +740,19 @@ export default function Form() {
                 </div>
               </div>
               <div className='relative row-start-1 mb-5 h-64 w-full sm:col-span-5 sm:col-start-6 sm:mx-10 sm:h-full'>
-                <div className=''>
-                  <Image
-                    priority
-                    fill
-                    src={imgType}
-                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    alt='Picture of the author'
-                    className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
-                  />
+                <div className='relative z-10 p-4 justify-left h-full flex items-start  '>
+                  <Hammer size={36} className='mr-3' />
+                  <h2 className='font-bold sm:text-xl'>{typeOfWorkImg()}</h2>
                 </div>
+                <Image
+                  id='imgLg'
+                  priority
+                  fill
+                  src={imgType}
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  alt='Picture of the author'
+                  className='rounded-xl bg-slate-200 object-contain py-10 shadow-lg'
+                />
               </div>
             </div>
           </motion.div>
@@ -736,12 +764,14 @@ export default function Form() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <h2 className='text-xl font-semibold leading-7  text-gray-900'>
-              {typeOfWork}
-            </h2>
-            <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Enter the necessary details for your estimation requirements.
-            </p>
+            <div className='text-center'>
+              <h2 className='text-2xl font-semibold leading-7 text-gray-900'>
+                {typeOfWork}
+              </h2>
+              <p className='mt-1 text-sm leading-6 text-gray-600'>
+                Enter the necessary details for your estimation requirements.
+              </p>
+            </div>
 
             <div className='mt-10 grid grid-cols-1 gap-y-8 sm:grid-cols-10 sm:gap-x-6'>
               {/* types */}
@@ -799,7 +829,7 @@ export default function Form() {
                     Wall Type
                   </label>
                   <div className=' sm:col-span-4 '>
-                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4 sm:mx-10 sm:hidden  sm:h-full'>
+                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
                       <div className=''>
                         <Image
                           priority
@@ -842,7 +872,7 @@ export default function Form() {
                     Tile Type
                   </label>
                   <div className=' sm:col-span-4 '>
-                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4 sm:mx-10 sm:hidden  sm:h-full'>
+                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
                       <div className=''>
                         <Image
                           priority
@@ -1165,73 +1195,9 @@ export default function Form() {
                   </div>
                 </div>
               )}
-              {/* Steel works Section */}
-              {typeOfWork === 'Steel Works' && (
-                <div className='col-span-5 col-start-1 sm:col-span-5'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
-                    <div className='col-span-1 sm:col-span-2'>
-                      <label
-                        htmlFor='totalRebar'
-                        className='block text-sm font-medium leading-6 text-gray-900'
-                      >
-                        Total Rebar {`(`}
-                        Kgs.
-                        {`)`}
-                      </label>
-                      <div className='mt-2'>
-                        <input
-                          type='number'
-                          id='totalRebar'
-                          {...register('totalRebar', {
-                            valueAsNumber: true
-                          })}
-                          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
-                        />
-                        {errors.totalRebar?.message && (
-                          <p className='mt-2 text-sm text-red-400'>
-                            {errors.totalRebar.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* Roofing works Section */}
-              {typeOfWork === 'Roof Works' && (
-                <div className='col-span-5 col-start-1 sm:col-span-5'>
-                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
-                    <div className='col-span-1 sm:col-span-2'>
-                      <label
-                        htmlFor='totalRoofArea'
-                        className='block text-sm font-medium leading-6 text-gray-900'
-                      >
-                        Total Roof Area {`(`}
-                        {getTotalUnits()}
-                        {`)`}
-                      </label>
-                      <div className='mt-2'>
-                        <input
-                          type='number'
-                          id='totalRoofArea'
-                          {...register('totalRoofArea', {
-                            valueAsNumber: true
-                          })}
-                          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
-                        />
-                        {errors.totalRoofArea?.message && (
-                          <p className='mt-2 text-sm text-red-400'>
-                            {errors.totalRoofArea.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
               {/* Painting Section */}
               {typeOfWork === 'Painting Works' && (
-                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                <div className='col-span-5 sm:col-span-5 sm:col-start-1 '>
                   <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
@@ -1311,7 +1277,7 @@ export default function Form() {
               )}
               {/* Tile Works Section */}
               {typeOfWork === 'Tile Works' && (
-                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                <div className='col-span-5 sm:col-span-5 sm:col-start-1'>
                   <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
                     <div className='col-span-1 sm:col-span-2'>
                       <label
@@ -1392,10 +1358,74 @@ export default function Form() {
                   </div>
                 </div>
               )}
+              {/* Steel works Section */}
+              {typeOfWork === 'Steel Works' && (
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-4'>
+                      <label
+                        htmlFor='totalRebar'
+                        className='block text-sm font-medium leading-6 text-gray-900'
+                      >
+                        Total Rebar {`(`}
+                        Kgs.
+                        {`)`}
+                      </label>
+                      <div className='mt-2'>
+                        <input
+                          type='number'
+                          id='totalRebar'
+                          {...register('totalRebar', {
+                            valueAsNumber: true
+                          })}
+                          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                        />
+                        {errors.totalRebar?.message && (
+                          <p className='mt-2 text-sm text-red-400'>
+                            {errors.totalRebar.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* Roofing works Section */}
+              {typeOfWork === 'Roof Works' && (
+                <div className='col-span-5 col-start-1 sm:col-span-5'>
+                  <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-5'>
+                    <div className='col-span-1 sm:col-span-4'>
+                      <label
+                        htmlFor='totalRoofArea'
+                        className='block text-sm font-medium leading-6 text-gray-900'
+                      >
+                        Total Roof Area {`(`}
+                        {getTotalUnits()}
+                        {`)`}
+                      </label>
+                      <div className='mt-2'>
+                        <input
+                          type='number'
+                          id='totalRoofArea'
+                          {...register('totalRoofArea', {
+                            valueAsNumber: true
+                          })}
+                          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                        />
+                        {errors.totalRoofArea?.message && (
+                          <p className='mt-2 text-sm text-red-400'>
+                            {errors.totalRoofArea.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Manpower */}
               {estimationType === 'Work Duration' && (
-                <div className='col-span-5 col-start-1 sm:row-start-1 sm:col-span-5 sm:col-start-6'>
+                <div className='col-span-5 col-start-1 sm:col-span-5 sm:col-start-6 sm:row-start-1'>
                   <div className='grid-child grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-5'>
                     <div className='col-span-1 sm:col-span-5'>
                       <label
@@ -1771,7 +1801,7 @@ export default function Form() {
       </form>
 
       {/* Navigation */}
-      <div className='mt-8 pb-10 pt-5'>
+      <div className='pb-10'>
         <div className='flex justify-between'>
           <button
             type='button'
