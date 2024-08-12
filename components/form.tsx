@@ -550,7 +550,7 @@ export default function Form() {
             <li key={step.name} className='md:flex-1'>
               {currentStep > index ? (
                 <div className='group flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
-                  <span className='text-sm font-medium text-sky-600 transition-colors '>
+                  <span className='text-xl font-semibold text-sky-600 transition-colors '>
                     {step.id}
                   </span>
                   <span className='text-md font-medium'>{step.name}</span>
@@ -560,14 +560,14 @@ export default function Form() {
                   className='flex w-full flex-col border-l-4 border-sky-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'
                   aria-current='step'
                 >
-                  <span className='text-lg font-medium text-sky-600'>
+                  <span className='text-xl font-semibold text-sky-600'>
                     {step.id}
                   </span>
                   <span className='text-md font-medium'>{step.name}</span>
                 </div>
               ) : (
-                <div className='group flex w-full flex-col border-l-4 border-gray-200 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
-                  <span className='text-lg font-medium text-gray-500 transition-colors'>
+                <div className='group flex w-full flex-col border-l-4 border-gray-400 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4'>
+                  <span className='text-xl font-semibold text-gray-500 transition-colors'>
                     {step.id}
                   </span>
                   <span className='text-md font-medium'>{step.name}</span>
@@ -740,7 +740,8 @@ export default function Form() {
                 </div>
               </div>
               <div className='relative row-start-1 mb-5 h-64 w-full sm:col-span-5 sm:col-start-6 sm:mx-10 sm:h-full'>
-                <div className='relative z-10 p-4 justify-left h-full flex items-start  '>
+                <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
+                <div className='justify-left relative z-10 flex h-full items-start p-4  '>
                   <Hammer size={36} className='mr-3' />
                   <h2 className='font-bold sm:text-xl'>{typeOfWorkImg()}</h2>
                 </div>
@@ -751,7 +752,7 @@ export default function Form() {
                   src={imgType}
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   alt='Picture of the author'
-                  className='rounded-xl bg-slate-200 object-contain py-10 shadow-lg'
+                  className='rounded-xl  object-contain py-10 shadow-lg'
                 />
               </div>
             </div>
@@ -779,20 +780,22 @@ export default function Form() {
                 <div className=' sm:col-span-4'>
                   <label
                     htmlFor='structuralMembers'
-                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
+                    className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Structural Members
                   </label>
-                  <div className=' sm:col-span-4 '>
-                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
-                      <div className=''>
+                  <div className='sm:col-span-4'>
+                    <div className='relative mb-5 h-64 w-full'>
+                      {/* Glassmorphism Effect */}
+                      <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
+                      <div className='relative h-full'>
                         <Image
                           priority
                           fill
                           src={imgTypeStep2}
                           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                           alt='Picture of the author'
-                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                          className='rounded-xl object-contain'
                         />
                       </div>
                     </div>
@@ -824,20 +827,22 @@ export default function Form() {
                 <div className=' sm:col-span-4'>
                   <label
                     htmlFor='wallType'
-                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
+                    className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Wall Type
                   </label>
-                  <div className=' sm:col-span-4 '>
-                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
-                      <div className=''>
+                  <div className='sm:col-span-4'>
+                    <div className='relative mb-5 h-64 w-full'>
+                      {/* Glassmorphism Effect */}
+                      <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
+                      <div className='relative h-full'>
                         <Image
                           priority
                           fill
                           src={imgTypeStep2}
                           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                           alt='Picture of the author'
-                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                          className='rounded-xl object-contain'
                         />
                       </div>
                     </div>
@@ -867,20 +872,22 @@ export default function Form() {
                 <div className=' sm:col-span-4'>
                   <label
                     htmlFor='tileType'
-                    className='block text-lg font-medium leading-6 text-gray-900 sm:text-lg'
+                    className='block text-xl font-semibold leading-6 text-gray-900 sm:text-lg'
                   >
                     Tile Type
                   </label>
-                  <div className=' sm:col-span-4 '>
-                    <div className='grid-child relative mb-5 grid h-64 w-full grid-cols-4   '>
-                      <div className=''>
+                  <div className='sm:col-span-4'>
+                    <div className='relative mb-5 h-64 w-full'>
+                      {/* Glassmorphism Effect */}
+                      <div className='absolute inset-0 rounded-2xl bg-stone-200 bg-opacity-10 shadow-lg backdrop-blur-sm'></div>
+                      <div className='relative h-full'>
                         <Image
                           priority
                           fill
                           src={imgTypeStep2}
                           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                           alt='Picture of the author'
-                          className='rounded-xl bg-slate-200 object-contain py-10  shadow-lg'
+                          className='rounded-xl object-contain'
                         />
                       </div>
                     </div>
