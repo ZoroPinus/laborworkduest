@@ -1724,6 +1724,7 @@ export default function Form() {
                       <p className='pb-1 text-sm uppercase text-gray-600'></p>
                       {projecType === 'Bungalow' ? (
                         <Image
+                          priority
                           src={'/img/bungalow.png'}
                           width={350}
                           height={350}
@@ -1731,6 +1732,7 @@ export default function Form() {
                         />
                       ) : (
                         <Image
+                          priority
                           src={'/img/2storey.png'}
                           width={350}
                           height={350}
@@ -1916,7 +1918,7 @@ export default function Form() {
                               total roof area
                             </p>
                             <p className='pr-4 text-sm text-slate-900'>
-                              {`${watch('totalRoofArea')} ${getTotalVolume()}`}
+                              {`${watch('totalRoofArea')} ${getTotalUnits()}`}
                             </p>
                           </div>
                         </>
@@ -1960,11 +1962,11 @@ export default function Form() {
                           <p className='indent-4 text-sm uppercase text-slate-600'>
                             {getLabelText()}
                           </p>
-                          {estimationType === 'Number of Labor' ?(
+                          {estimationType === 'Number of Labor' ? (
                             <p className='pr-4 text-sm text-slate-900'>
                               {specialWorker}
                             </p>
-                          ):(
+                          ) : (
                             <p className='pr-4 text-sm text-slate-900'>
                               {watch('special')}
                             </p>
@@ -1975,15 +1977,15 @@ export default function Form() {
                             <p className='indent-4 text-sm uppercase text-slate-600'>
                               welder
                             </p>
-                            {estimationType === 'Number of Labor' ?(
-                            <p className='pr-4 text-sm text-slate-900'>
-                              {specialWorker2}
-                            </p>
-                          ):(
-                            <p className='pr-4 text-sm text-slate-900'>
-                              {watch('special2')}
-                            </p>
-                          )}
+                            {estimationType === 'Number of Labor' ? (
+                              <p className='pr-4 text-sm text-slate-900'>
+                                {specialWorker2}
+                              </p>
+                            ) : (
+                              <p className='pr-4 text-sm text-slate-900'>
+                                {watch('special2')}
+                              </p>
+                            )}
                           </div>
                         )}
 
@@ -1991,11 +1993,11 @@ export default function Form() {
                           <p className='indent-4 text-sm uppercase text-slate-600'>
                             labor
                           </p>
-                          {estimationType === 'Number of Labor' ?(
+                          {estimationType === 'Number of Labor' ? (
                             <p className='pr-4 text-sm text-slate-900'>
                               {laborWorker}
                             </p>
-                          ):(
+                          ) : (
                             <p className='pr-4 text-sm text-slate-900'>
                               {watch('labor')}
                             </p>
