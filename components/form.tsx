@@ -14,7 +14,9 @@ import {
   DraftingCompass,
   Hammer,
   HardHat,
-  PencilRuler
+  ListRestart,
+  PencilRuler,
+  RotateCcw
 } from 'lucide-react'
 type Inputs = z.infer<typeof EstimationFormSchema>
 const initialValues: Inputs = {
@@ -536,10 +538,9 @@ export default function Form() {
     }
   }
 
-  const showImg = () => {
-    if (typeOfWork === 'Concrete Works') {
-      return imgType
-    }
+  const resetButton = () => {
+    reset()
+    location.reload()
   }
   return (
     <section className='flex flex-col justify-between py-12  '>
@@ -774,7 +775,9 @@ export default function Form() {
               </p>
             </div>
 
-            <div className={`mt-10 grid grid-cols-1 gap-y-8 ${estimationType === 'Work Duration' ?'sm:grid-cols-10':'sm:grid-cols-4 '} sm:gap-x-6`}>
+            <div
+              className={`mt-10 grid grid-cols-1 gap-y-8 ${estimationType === 'Work Duration' ? 'sm:grid-cols-10' : 'sm:grid-cols-4 '} sm:gap-x-6`}
+            >
               {/* types */}
               {typeOfWork === 'Concrete Works' && (
                 <div className=' sm:col-span-5'>
@@ -1694,17 +1697,27 @@ export default function Form() {
 
         {currentStep === 2 && (
           <div>
-            <h2 className='text-xl font-semibold  leading-7 text-gray-900'>
-              Complete
-            </h2>
-            <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Thank you for your submission.
-            </p>
+            <div className='flex items-center justify-between'>
+              <div>
+                <h2 className='text-xl font-semibold  leading-7 text-gray-900'>
+                  Complete
+                </h2>
+                <p className='mt-1 text-sm leading-6 text-gray-600'>
+                  Thank you for your submission.
+                </p>
+              </div>
+              <div
+                onClick={() => resetButton()}
+                className='flex h-[60px] w-[60px]  items-center justify-center rounded-full bg-white drop-shadow-md hover:bg-slate-100 hover:shadow-inner'
+              >
+                <RotateCcw size={32} />
+              </div>
+            </div>
             <div className='mt-10 grid gap-x-3 gap-y-8 rounded-sm border border-solid border-slate-300 bg-white p-5 sm:grid-cols-10'>
               <div className='col-span-4'>
                 <div className='grid-child gap-y-3 sm:grid-cols-4'>
                   <div className='col-span-4'>
-                    <h4 className='text-semibold my-2 rounded-sm border border-slate-300 text-center text-lg uppercase text-gray-900'>
+                    <h4 className='text-semibold my-2  text-center text-lg uppercase text-gray-900'>
                       {watch('projectType')}
                     </h4>
                     <div className='flex w-full flex-col items-center justify-center border-x-0 border-y-2 border-gray-950 py-2'>
@@ -1925,50 +1938,70 @@ export default function Form() {
                       ESTIMATIONS
                     </p>
                     <div className='gap-y-3 border-x-0 border-t-2 border-gray-950 py-2 '>
-                      {estimationType !== 'Work Duration' && (
-                        <div className='flex items-center justify-between'>
-                          <p className='text-sm uppercase text-slate-600'>
-                            WORK DURATION
-                          </p>
+                      <div className='flex items-center justify-between'>
+                        <p className='text-sm uppercase text-slate-600'>
+                          WORK DURATION
+                        </p>
+                        {estimationType !== 'Work Duration' ? (
                           <p className='pr-4 text-sm text-slate-900'>
-                            {watch('width')} Days
+                            {watch('workDuration')} Days
                           </p>
-                        </div>
-                      )}
-                      {estimationType === 'Number of Labor' && (
-                        <div>
-                          <p className='text-sm uppercase text-slate-600'>
-                            Number of labors
+                        ) : (
+                          <p className='pr-4 text-sm text-slate-900'>
+                            {workDuration} Days
                           </p>
-                          <div className='flex items-center justify-between'>
-                            <p className='indent-4 text-sm uppercase text-slate-600'>
-                              {getLabelText()}
-                            </p>
+                        )}
+                      </div>
+                      <div>
+                        <p className='text-sm uppercase text-slate-600'>
+                          Number of labors
+                        </p>
+                        <div className='flex items-center justify-between'>
+                          <p className='indent-4 text-sm uppercase text-slate-600'>
+                            {getLabelText()}
+                          </p>
+                          {estimationType === 'Number of Labor' ?(
                             <p className='pr-4 text-sm text-slate-900'>
                               {specialWorker}
                             </p>
-                          </div>
-                          {typeOfWork === 'Roof Works' && (
-                            <div className='flex items-center justify-between'>
-                              <p className='indent-4 text-sm uppercase text-slate-600'>
-                                welder
-                              </p>
-                              <p className='pr-4 text-sm text-slate-900'>
-                                {specialWorker2}
-                              </p>
-                            </div>
+                          ):(
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('special')}
+                            </p>
                           )}
-
+                        </div>
+                        {typeOfWork === 'Roof Works' && (
                           <div className='flex items-center justify-between'>
                             <p className='indent-4 text-sm uppercase text-slate-600'>
-                              labor
+                              welder
                             </p>
+                            {estimationType === 'Number of Labor' ?(
                             <p className='pr-4 text-sm text-slate-900'>
-                              {laborWorker}
+                              {specialWorker2}
                             </p>
+                          ):(
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('special2')}
+                            </p>
+                          )}
                           </div>
+                        )}
+
+                        <div className='flex items-center justify-between'>
+                          <p className='indent-4 text-sm uppercase text-slate-600'>
+                            labor
+                          </p>
+                          {estimationType === 'Number of Labor' ?(
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {labor}
+                            </p>
+                          ):(
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('labor')}
+                            </p>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>
