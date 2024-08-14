@@ -189,9 +189,9 @@ export default function Form() {
     return totalSum
   }
   const calculateAverage = (numbers: number[]): number => {
-    const validNumbers = numbers.filter(num => num !== 0);
-    const total = validNumbers.reduce((sum, num) => sum + num, 0);
-    return validNumbers.length > 0 ? total / validNumbers.length : 0;
+    const validNumbers = numbers.filter(num => num !== 0)
+    const total = validNumbers.reduce((sum, num) => sum + num, 0)
+    return validNumbers.length > 0 ? total / validNumbers.length : 0
   }
   const getLabelText = () => {
     switch (typeOfWork) {
@@ -336,9 +336,9 @@ export default function Form() {
     }
 
     if (typeOfWork === 'Masonry Works') {
-      a = totalVolume! / (15.3 * special!)
-      b = totalVolume! / (10.2 * special2!)
-      c = totalVolume! / (5.1 * labor!)
+      a = totalVolume! / (7.65 * special!)
+      b = totalVolume! / (15.3 * special2!)
+      c = totalVolume! / (7.65 * labor!)
 
       const numbers = [a, b, c].filter(num => num !== 0)
       const average = calculateAverage(numbers)
@@ -403,12 +403,12 @@ export default function Form() {
     if (typeOfWork === 'Tile Works') {
       if (tileType === 'Floor Tile') {
         a = totalVolume! / (0.9927 * special!)
-        b = totalVolume! / (0.9927 * special2!)
-        c = totalVolume! / (0.9927 * labor!)
+        b = totalVolume! / (4.9636 * special2!)
+        c = totalVolume! / (4.963636364 * labor!)
       } else {
         a = totalVolume! / (0.9927 * special!)
-        b = totalVolume! / (0.9927 * special2!)
-        c = totalVolume! / (0.9927 * labor!)
+        b = totalVolume! / (4.9636 * special2!)
+        c = totalVolume! / (4.963636364 * labor!)
       }
 
       const numbers = [a, b, c].filter(num => num !== 0)
@@ -445,9 +445,9 @@ export default function Form() {
       return
     }
     if (typeOfWork === 'Masonry Works') {
-      noOfSpecial = totalVolume! / (15.3 * workDurationInput!)
-      noOfSpecial2 = totalVolume! / (10.2 * workDurationInput!)
-      noOfLabor = totalVolume! / (5.1 * workDurationInput!)
+      noOfSpecial = totalVolume! / (7.65 * workDurationInput!)
+      noOfSpecial2 = totalVolume! / (15.3 * workDurationInput!)
+      noOfLabor = totalVolume! / (7.65 * workDurationInput!)
       setSpecialWorker(Math.ceil(noOfSpecial))
       setSpecialWorker2(Math.ceil(noOfSpecial2))
       setLaborWorker(Math.ceil(noOfLabor))
@@ -482,9 +482,9 @@ export default function Form() {
       return
     }
     if (typeOfWork === 'Roof Works') {
-      noOfSpecial = totalRoofArea! / (4.2 * workDurationInput!)/2
-      noOfSpecial2 = totalRoofArea! / (4.2 * workDurationInput!)
-      noOfLabor = totalRoofArea! / (4.2 * workDurationInput!)
+      noOfSpecial = totalRoofArea! / (8.304 * workDurationInput!)
+      noOfSpecial2 = totalRoofArea! / (8.304 * workDurationInput!)
+      noOfLabor = totalRoofArea! / (4.152 * workDurationInput!)
       setSpecialWorker(Math.ceil(noOfSpecial))
       setSpecialWorker2(Math.ceil(noOfSpecial2))
       setLaborWorker(Math.ceil(noOfLabor))
