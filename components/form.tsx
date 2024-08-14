@@ -1972,73 +1972,95 @@ export default function Form() {
                           </div>
                         </>
                       )}
+                      {estimationType !== 'Work Duration' && (
+                        <div className='flex items-center justify-between'>
+                          <p className='text-sm uppercase text-slate-600'>
+                            WORK DURATION
+                          </p>
+                          <p className='pr-4 text-sm text-slate-900'>
+                            {watch('workDuration')} Days
+                          </p>
+                        </div>
+                      )}
+                      {estimationType !== 'Number of Labor' && (
+                        <div>
+                          <p className='text-sm uppercase text-slate-600'>
+                            Number of labors
+                          </p>
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              Foreman
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('special')}
+                            </p>
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              skilled
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('special2')}
+                            </p>
+                          </div>
+
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              unskilled
+                            </p>
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('labor')}
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <p className='text-semibold my-1 text-base uppercase text-gray-900'>
                       ESTIMATIONS
                     </p>
                     <div className='gap-y-3 border-x-0 border-t-2 border-gray-950 py-2 '>
-                      <div className='flex items-center justify-between'>
-                        <p className='text-sm uppercase text-slate-600'>
-                          WORK DURATION
-                        </p>
-                        {estimationType !== 'Work Duration' ? (
-                          <p className='pr-4 text-sm text-slate-900'>
-                            {watch('workDuration')} Days
+                      {estimationType === 'Work Duration' && (
+                        <div className='flex items-center justify-between'>
+                          <p className='text-sm uppercase text-slate-600'>
+                            WORK DURATION
                           </p>
-                        ) : (
                           <p className='pr-4 text-sm text-slate-900'>
                             {workDuration} Days
                           </p>
-                        )}
-                      </div>
-                      <div>
-                        <p className='text-sm uppercase text-slate-600'>
-                          Number of labors
-                        </p>
-                        <div className='flex items-center justify-between'>
-                          <p className='indent-4 text-sm uppercase text-slate-600'>
-                            Foreman
+                        </div>
+                      )}
+                      {estimationType === 'Number of Labor' && (
+                        <div>
+                          <p className='text-sm uppercase text-slate-600'>
+                            Number of labors
                           </p>
-                          {estimationType === 'Number of Labor' ? (
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              Foreman
+                            </p>
                             <p className='pr-4 text-sm text-slate-900'>
                               {specialWorker}
                             </p>
-                          ) : (
-                            <p className='pr-4 text-sm text-slate-900'>
-                              {watch('special')}
+                          </div>
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              skilled
                             </p>
-                          )}
-                        </div>
-                        <div className='flex items-center justify-between'>
-                          <p className='indent-4 text-sm uppercase text-slate-600'>
-                            skilled
-                          </p>
-                          {estimationType === 'Number of Labor' ? (
                             <p className='pr-4 text-sm text-slate-900'>
                               {specialWorker2}
                             </p>
-                          ) : (
-                            <p className='pr-4 text-sm text-slate-900'>
-                              {watch('special2')}
-                            </p>
-                          )}
-                        </div>
+                          </div>
 
-                        <div className='flex items-center justify-between'>
-                          <p className='indent-4 text-sm uppercase text-slate-600'>
-                            unskilled
-                          </p>
-                          {estimationType === 'Number of Labor' ? (
+                          <div className='flex items-center justify-between'>
+                            <p className='indent-4 text-sm uppercase text-slate-600'>
+                              unskilled
+                            </p>
                             <p className='pr-4 text-sm text-slate-900'>
                               {laborWorker}
                             </p>
-                          ) : (
-                            <p className='pr-4 text-sm text-slate-900'>
-                              {watch('labor')}
-                            </p>
-                          )}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
