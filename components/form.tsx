@@ -288,7 +288,6 @@ export default function Form() {
   }
   const getExpected = (date: Date, workDuration: number) => {
     const startDate = new Date(date)
-
     // Add the number of days to the start date
     startDate.setDate(startDate.getDate() + workDuration)
 
@@ -328,7 +327,7 @@ export default function Form() {
 
       const numbers = [a, b, c].filter(num => num !== 0)
       const average = calculateAverage(numbers)
-      res = clp + average - 1
+      res = clp + average
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -342,7 +341,7 @@ export default function Form() {
 
       const numbers = [a, b, c].filter(num => num !== 0)
       const average = calculateAverage(numbers)
-      res = clp + average + 1
+      res = clp + average
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -356,7 +355,7 @@ export default function Form() {
 
       const numbers = [a, b, c].filter(num => num !== 0)
       const average = calculateAverage(numbers)
-      res = clp + average + 1
+      res = clp + average
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -2058,16 +2057,16 @@ export default function Form() {
                     <p className='text-sm uppercase text-slate-600'>
                       expected date
                     </p>
-                    {estimationType === ' Work Duration' ? (
-                      <p className='text-sm uppercase text-slate-900'>
-                        {getExpected(watch('startDate'), workDuration)}
-                      </p>
-                    ) : (
+                    {estimationType !== 'Work Duration' ? (
                       <p className='text-sm uppercase text-slate-900'>
                         {getExpected(
                           watch('startDate'),
                           watch('workDuration')!
                         )}
+                      </p>
+                    ) : (
+                      <p className='text-sm uppercase text-slate-900'>
+                        {getExpected(watch('startDate'), workDuration)}
                       </p>
                     )}
                   </div>
