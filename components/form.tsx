@@ -39,7 +39,7 @@ const initialValues: Inputs = {
   roofing: 0,
   areaOfWindow: 0,
   areaOfDoor: 0,
-  chbWidth: 0,
+  chbWidth: 4,
   totalArea: 0,
   special: 0,
   special2: 0,
@@ -121,6 +121,8 @@ export default function Form() {
   const [workDuration, setWorkDuration] = useState(0)
   const [specialWorker, setSpecialWorker] = useState(0)
   const [specialWorker2, setSpecialWorker2] = useState(0)
+  const [specialName, setSpecialName] = useState(0)
+  const [specialName2, setSpecialName2] = useState(0)
   const [laborWorker, setLaborWorker] = useState(0)
   const [imgType, setImgType] = useState('/img/footing2.png')
   const [imgTypeStep2, setImgTypeStep2] = useState('/img/footing2.png')
@@ -186,7 +188,11 @@ export default function Form() {
       rework
     return totalSum
   }
-
+  const calculateAverage = (numbers: number[]): number => {
+    const validNumbers = numbers.filter(num => num !== 0);
+    const total = validNumbers.reduce((sum, num) => sum + num, 0);
+    return validNumbers.length > 0 ? total / validNumbers.length : 0;
+  }
   const getLabelText = () => {
     switch (typeOfWork) {
       case 'Steel Works':
@@ -196,7 +202,7 @@ export default function Form() {
       case 'Roof Works':
         return 'Foreman'
       default:
-        return 'Mason'
+        return 'Foreman'
     }
   }
   const getTotalUnits = () => {
@@ -302,6 +308,7 @@ export default function Form() {
   const clp = calculateCLP()
   const totalRebar = watch('totalRebar')
   const totalRoofArea = watch('totalRoofArea')
+  // Formulas
   const getTotalWorkDuration = () => {
     let a, b, c, average, workDuration, res
 
@@ -310,14 +317,18 @@ export default function Form() {
         structuralMembers === 'Floor Slab' ||
         structuralMembers === 'Footing'
       ) {
-        a = totalVolume! / (4.04444 * special!)
-        b = totalVolume! / (1.15556 * labor!)
+        a = totalVolume! / (5.0507 * special!)
+        b = totalVolume! / (1.6836 * special2!)
+        c = totalVolume! / (0.8418 * labor!)
       } else {
-        a = totalVolume! / (2.17778 * special!)
-        b = totalVolume! / (0.62222 * labor!)
+        a = totalVolume! / (5.0507 * special!)
+        b = totalVolume! / (1.6836 * special2!)
+        c = totalVolume! / (0.8418 * labor!)
       }
-      average = (a! + b!) / 2
-      res = clp + average
+
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
+      res = clp + average - 1
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -325,10 +336,13 @@ export default function Form() {
     }
 
     if (typeOfWork === 'Masonry Works') {
-      a = totalVolume! / (3.33333 * special!)
-      b = totalVolume! / (3.33333 * labor!)
-      average = (a! + b!) / 2
-      res = clp + average
+      a = totalVolume! / (15.3 * special!)
+      b = totalVolume! / (10.2 * special2!)
+      c = totalVolume! / (5.1 * labor!)
+
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
+      res = clp + average + 1
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -336,10 +350,13 @@ export default function Form() {
     }
 
     if (typeOfWork === 'Steel Works') {
-      a = totalRebar! / (180 * special!)
-      b = totalRebar! / (45 * labor!)
-      average = (a! + b!) / 2
-      res = clp + average
+      a = totalRebar! / (1059.2345 * special!)
+      b = totalRebar! / (264.8086 * special2!)
+      c = totalRebar! / (88.2695 * labor!)
+
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
+      res = clp + average + 1
       workDuration = Math.ceil(res)
 
       setWorkDuration(workDuration)
@@ -348,16 +365,21 @@ export default function Form() {
 
     if (typeOfWork === 'Painting Works') {
       if (wallType === 'Interior Wall') {
-        a = totalVolume! / (5.0 * special!)
-        b = totalVolume! / (5.0 * labor!)
+        a = totalVolume! / (8.4 * special!)
+        b = totalVolume! / (4.2 * special2!)
+        c = totalVolume! / (8.4 * labor!)
       } else if (wallType === 'Exterior Wall') {
-        a = totalVolume! / (4.0 * special!)
-        b = totalVolume! / (4.0 * labor!)
+        a = totalVolume! / (8.4 * special!)
+        b = totalVolume! / (4.2 * special2!)
+        c = totalVolume! / (8.4 * labor!)
       } else {
-        a = totalVolume! / (4.5 * special!)
-        b = totalVolume! / (4.5 * labor!)
+        a = totalVolume! / (8.4 * special!)
+        b = totalVolume! / (4.2 * special2!)
+        c = totalVolume! / (8.4 * labor!)
       }
-      average = (a! + b!) / 2
+
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
       res = clp + average
       workDuration = Math.ceil(res)
 
@@ -366,10 +388,11 @@ export default function Form() {
     }
 
     if (typeOfWork === 'Roof Works') {
-      a = totalRoofArea! / (8 * special!)
-      b = totalRoofArea! / (8 * special2!)
-      c = totalRoofArea! / (8 * labor!)
-      average = (a! + b! + c!) / 3
+      a = totalRoofArea! / (4.152 * special!)
+      b = totalRoofArea! / (4.152 * special2!)
+      c = totalRoofArea! / (8.304 * labor!)
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
       res = clp + average
       workDuration = Math.ceil(res)
 
@@ -379,13 +402,17 @@ export default function Form() {
 
     if (typeOfWork === 'Tile Works') {
       if (tileType === 'Floor Tile') {
-        a = totalVolume! / (1.84 * special!)
-        b = totalVolume! / (1.84 * labor!)
+        a = totalVolume! / (0.9927 * special!)
+        b = totalVolume! / (0.9927 * special2!)
+        c = totalVolume! / (0.9927 * labor!)
       } else {
-        a = totalVolume! / (1.52 * special!)
-        b = totalVolume! / (1.52 * labor!)
+        a = totalVolume! / (0.9927 * special!)
+        b = totalVolume! / (0.9927 * special2!)
+        c = totalVolume! / (0.9927 * labor!)
       }
-      average = (a! + b!) / 2
+
+      const numbers = [a, b, c].filter(num => num !== 0)
+      const average = calculateAverage(numbers)
       res = clp + average
       workDuration = Math.ceil(res)
 
@@ -404,66 +431,77 @@ export default function Form() {
         structuralMembers === 'Floor Slab' ||
         structuralMembers === 'Footing'
       ) {
-        noOfSpecial = totalVolume! / (4.04444 * workDurationInput!)
-        noOfLabor = totalVolume! / (1.15556 * workDurationInput!)
+        noOfSpecial = totalVolume! / (5.0507 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (1.6836 * workDurationInput!)
+        noOfLabor = totalVolume! / (0.8418 * workDurationInput!)
       } else {
-        noOfSpecial = totalVolume! / (2.17778 * workDurationInput!)
-        noOfLabor = totalVolume! / (0.62222 * workDurationInput!)
+        noOfSpecial = totalVolume! / (5.0507 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (1.6836 * workDurationInput!)
+        noOfLabor = totalVolume! / (0.8418 * workDurationInput!)
       }
-      setSpecialWorker(Math.ceil(noOfSpecial))
-      setLaborWorker(Math.ceil(noOfLabor))
-      return
-    }
-    if (typeOfWork === 'Masonry Works') {
-      noOfSpecial = totalVolume! / (3.33333 * workDurationInput!)
-      noOfLabor = totalVolume! / (3.33333 * workDurationInput!)
-      setSpecialWorker(Math.ceil(noOfSpecial))
-      setLaborWorker(Math.ceil(noOfLabor))
-      return
-    }
-    if (typeOfWork === 'Steel Works') {
-      noOfSpecial = totalRebar! / (180.0 * workDurationInput!)
-      noOfLabor = totalRebar! / (45.0 * workDurationInput!)
-      setSpecialWorker(Math.ceil(noOfSpecial))
-      setLaborWorker(Math.ceil(noOfLabor))
-      return
-    }
-
-    if (typeOfWork === 'Painting Works') {
-      if (structuralMembers === 'Interior Wall') {
-        noOfSpecial = totalVolume! / (5.0 * workDurationInput!)
-        noOfLabor = totalVolume! / (5.0 * workDurationInput!)
-      } else if (structuralMembers === 'Exterior Wall') {
-        noOfSpecial = totalVolume! / (4.0 * workDurationInput!)
-        noOfLabor = totalVolume! / (4.0 * workDurationInput!)
-      } else {
-        noOfSpecial = totalVolume! / (4.5 * workDurationInput!)
-        noOfLabor = totalVolume! / (4.5 * workDurationInput!)
-      }
-      setSpecialWorker(Math.ceil(noOfSpecial))
-      setLaborWorker(Math.ceil(noOfLabor))
-      return
-    }
-
-    if (typeOfWork === 'Roof Works') {
-      noOfSpecial = totalRoofArea! / (8 * workDurationInput!) / 2
-      noOfSpecial2 = totalRoofArea! / (8 * workDurationInput!)
-      noOfLabor = totalRoofArea! / (8 * workDurationInput!)
       setSpecialWorker(Math.ceil(noOfSpecial))
       setSpecialWorker2(Math.ceil(noOfSpecial2))
       setLaborWorker(Math.ceil(noOfLabor))
       return
     }
-
+    if (typeOfWork === 'Masonry Works') {
+      noOfSpecial = totalVolume! / (15.3 * workDurationInput!)
+      noOfSpecial2 = totalVolume! / (10.2 * workDurationInput!)
+      noOfLabor = totalVolume! / (5.1 * workDurationInput!)
+      setSpecialWorker(Math.ceil(noOfSpecial))
+      setSpecialWorker2(Math.ceil(noOfSpecial2))
+      setLaborWorker(Math.ceil(noOfLabor))
+      return
+    }
+    if (typeOfWork === 'Steel Works') {
+      noOfSpecial = totalRebar! / (1059.2345 * workDurationInput!)
+      noOfSpecial2 = totalRebar! / (264.8086 * workDurationInput!)
+      noOfLabor = totalRebar! / (88.2695 * workDurationInput!)
+      setSpecialWorker(Math.ceil(noOfSpecial))
+      setSpecialWorker2(Math.ceil(noOfSpecial2))
+      setLaborWorker(Math.ceil(noOfLabor))
+      return
+    }
+    if (typeOfWork === 'Painting Works') {
+      if (structuralMembers === 'Interior Wall') {
+        noOfSpecial = totalVolume! / (8.4 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (4.2 * workDurationInput!)
+        noOfLabor = totalVolume! / (4.2 * workDurationInput!)
+      } else if (structuralMembers === 'Exterior Wall') {
+        noOfSpecial = totalVolume! / (8.4 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (4.2 * workDurationInput!)
+        noOfLabor = totalVolume! / (4.2 * workDurationInput!)
+      } else {
+        noOfSpecial = totalVolume! / (8.4 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (4.2 * workDurationInput!)
+        noOfLabor = totalVolume! / (4.2 * workDurationInput!)
+      }
+      setSpecialWorker(Math.ceil(noOfSpecial!))
+      setSpecialWorker2(Math.ceil(noOfSpecial2))
+      setLaborWorker(Math.ceil(noOfLabor))
+      return
+    }
+    if (typeOfWork === 'Roof Works') {
+      noOfSpecial = totalRoofArea! / (4.2 * workDurationInput!)/2
+      noOfSpecial2 = totalRoofArea! / (4.2 * workDurationInput!)
+      noOfLabor = totalRoofArea! / (4.2 * workDurationInput!)
+      setSpecialWorker(Math.ceil(noOfSpecial))
+      setSpecialWorker2(Math.ceil(noOfSpecial2))
+      setLaborWorker(Math.ceil(noOfLabor))
+      return
+    }
     if (typeOfWork === 'Tile Works') {
       if (tileType === 'Floor Tile') {
-        noOfSpecial = totalVolume! / (1.84 * workDurationInput!)
-        noOfLabor = totalVolume! / (1.84 * workDurationInput!)
+        noOfSpecial = totalVolume! / (4.963636364 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (0.9927 * workDurationInput!)
+        noOfLabor = totalVolume! / (0.9927 * workDurationInput!)
       } else {
-        noOfSpecial = totalVolume! / (1.52 * workDurationInput!)
-        noOfLabor = totalVolume! / (1.52 * workDurationInput!)
+        noOfSpecial = totalVolume! / (4.963636364 * workDurationInput!)
+        noOfSpecial2 = totalVolume! / (0.9927 * workDurationInput!)
+        noOfLabor = totalVolume! / (0.9927 * workDurationInput!)
       }
       setSpecialWorker(Math.ceil(noOfSpecial))
+      setSpecialWorker2(Math.ceil(noOfSpecial2))
       setLaborWorker(Math.ceil(noOfLabor))
       return
     }
@@ -997,7 +1035,7 @@ export default function Form() {
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
                         Quantity {`(`}
-                        {getUnits()}
+                        Unit/s
                         {`)`}
                       </label>
                       <div className='mt-2'>
@@ -1192,6 +1230,8 @@ export default function Form() {
                         <input
                           type='number'
                           id='chbWidth'
+                          value={4}
+                          disabled
                           {...register('chbWidth', { valueAsNumber: true })}
                           className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                         />
@@ -1450,7 +1490,7 @@ export default function Form() {
                         htmlFor='special'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        {getLabelText()}
+                        Foreman
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1466,37 +1506,35 @@ export default function Form() {
                         )}
                       </div>
                     </div>
-                    {typeOfWork === 'Roof Works' && (
-                      <div className='sm:col-span-2'>
-                        <label
-                          htmlFor='special2'
-                          className='block text-sm font-medium leading-6 text-gray-900'
-                        >
-                          Welder
-                        </label>
-                        <div className='mt-2'>
-                          <input
-                            type='number'
-                            id='special2'
-                            {...register('special2', {
-                              valueAsNumber: true
-                            })}
-                            className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
-                          />
-                          {errors.special2?.message && (
-                            <p className='mt-2 text-sm text-red-400'>
-                              {errors.special2.message}
-                            </p>
-                          )}
-                        </div>
+                    <div className='sm:col-span-2'>
+                      <label
+                        htmlFor='special2'
+                        className='block text-sm font-medium leading-6 text-gray-900'
+                      >
+                        Skilled
+                      </label>
+                      <div className='mt-2'>
+                        <input
+                          type='number'
+                          id='special2'
+                          {...register('special2', {
+                            valueAsNumber: true
+                          })}
+                          className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                        />
+                        {errors.special2?.message && (
+                          <p className='mt-2 text-sm text-red-400'>
+                            {errors.special2.message}
+                          </p>
+                        )}
                       </div>
-                    )}
+                    </div>
                     <div className='sm:col-span-2'>
                       <label
                         htmlFor='labor'
                         className='block text-sm font-medium leading-6 text-gray-900'
                       >
-                        Labor
+                        Unskilled
                       </label>
                       <div className='mt-2'>
                         <input
@@ -1790,7 +1828,7 @@ export default function Form() {
                               quantity
                             </p>
                             <p className='pr-4 text-sm text-slate-900'>
-                              {`${watch('quantity')} ${getUnits()}`}
+                              {`${watch('quantity')} Unit/s`}
                             </p>
                           </div>
                           <div className='flex items-center justify-between'>
@@ -1960,7 +1998,7 @@ export default function Form() {
                         </p>
                         <div className='flex items-center justify-between'>
                           <p className='indent-4 text-sm uppercase text-slate-600'>
-                            {getLabelText()}
+                            Foreman
                           </p>
                           {estimationType === 'Number of Labor' ? (
                             <p className='pr-4 text-sm text-slate-900'>
@@ -1972,26 +2010,24 @@ export default function Form() {
                             </p>
                           )}
                         </div>
-                        {typeOfWork === 'Roof Works' && (
-                          <div className='flex items-center justify-between'>
-                            <p className='indent-4 text-sm uppercase text-slate-600'>
-                              welder
+                        <div className='flex items-center justify-between'>
+                          <p className='indent-4 text-sm uppercase text-slate-600'>
+                            skilled
+                          </p>
+                          {estimationType === 'Number of Labor' ? (
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {specialWorker2}
                             </p>
-                            {estimationType === 'Number of Labor' ? (
-                              <p className='pr-4 text-sm text-slate-900'>
-                                {specialWorker2}
-                              </p>
-                            ) : (
-                              <p className='pr-4 text-sm text-slate-900'>
-                                {watch('special2')}
-                              </p>
-                            )}
-                          </div>
-                        )}
+                          ) : (
+                            <p className='pr-4 text-sm text-slate-900'>
+                              {watch('special2')}
+                            </p>
+                          )}
+                        </div>
 
                         <div className='flex items-center justify-between'>
                           <p className='indent-4 text-sm uppercase text-slate-600'>
-                            labor
+                            unskilled
                           </p>
                           {estimationType === 'Number of Labor' ? (
                             <p className='pr-4 text-sm text-slate-900'>
