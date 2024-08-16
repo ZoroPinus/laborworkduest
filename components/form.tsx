@@ -244,18 +244,7 @@ export default function Form() {
     }
   }
   const getUnits = () => {
-    switch (prefUnits) {
-      case 'mm':
-        return 'mm'
-      case 'cm':
-        return 'cm'
-      case 'in':
-        return 'in'
-      case 'ft':
-        return 'ft'
-      default:
-        return 'm'
-    }
+    return 'm'
   }
   const getDate = (date: Date) => {
     const newDate = new Date(date)
