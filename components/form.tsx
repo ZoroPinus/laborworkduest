@@ -167,10 +167,10 @@ export default function Form() {
       setCurrentStep(step => step - 1)
     }
   }
-  const projecType = watch('projectType')
+  const projecType = 'Bungalow'
   const typeOfWork = watch('typeOfWork')
   const estimationType = watch('estimationType')
-  const prefUnits = watch('prefUnits')
+  const prefUnits = 'm'
   const calculateCLP = () => {
     const rainySeasonValue = watch('rainySeason') ? 4 : 0
     const lackOfMaterialValue = watch('lackOfMaterial') ? 5 : 0
@@ -207,31 +207,9 @@ export default function Form() {
   }
   const getTotalUnits = () => {
     if (typeOfWork === 'Concrete Works') {
-      switch (prefUnits) {
-        case 'mm':
-          return 'mm³'
-        case 'cm':
-          return 'cm³'
-        case 'in':
-          return 'in³'
-        case 'ft':
-          return 'ft³'
-        default:
-          return 'm³'
-      }
+      return 'm³'
     } else {
-      switch (prefUnits) {
-        case 'mm':
-          return 'mm²'
-        case 'cm':
-          return 'cm²'
-        case 'in':
-          return 'in²'
-        case 'ft':
-          return 'ft²'
-        default:
-          return 'm²'
-      }
+      return 'm²'
     }
   }
   const getTotalVolume = () => {
@@ -643,17 +621,14 @@ export default function Form() {
                       <HardHat size={28} className='mr-2' /> Project Type
                     </label>
                     <div className='mt-2 '>
-                      <select
+                      <input
                         id='projectType'
                         {...register('projectType')}
                         className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
-                      >
-                        <option value='' disabled selected>
-                          Select your option
-                        </option>
-                        <option value='Bungalow'>Bungalow</option>
-                        <option value='2 Storey'>2 Storey</option>
-                      </select>
+                        placeholder='Bungalow'
+                        value='Bungalow'
+                        disabled
+                      />
                       {errors.projectType?.message && (
                         <p className='mt-2 text-sm text-red-400'>
                           {errors.projectType.message}
@@ -671,20 +646,14 @@ export default function Form() {
                       Units
                     </label>
                     <div className='mt-2'>
-                      <select
+                      <input
                         id='prefUnits'
                         {...register('prefUnits')}
                         className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600  sm:text-sm sm:leading-6'
-                      >
-                        <option value='' disabled selected>
-                          Select your option
-                        </option>
-                        <option value='m'>m</option>
-                        <option value='mm'>mm</option>
-                        <option value='cm'>cm</option>
-                        <option value='in'>in</option>
-                        <option value='ft'>ft</option>
-                      </select>
+                        placeholder='m'
+                        value='m'
+                        disabled
+                      />
                       {errors.prefUnits?.message && (
                         <p className='mt-2 text-sm text-red-400'>
                           {errors.prefUnits.message}
